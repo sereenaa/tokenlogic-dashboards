@@ -28,6 +28,7 @@ const GHOSwapChart = ({ data }) => {
         data: data.filter(item => item.gho_buysell === 'buy').map(item => ({
           x: new Date(item.block_timestamp.value),
           y: item.gho_swapped || 0,
+          gho_price_usd: item.gho_price_usd,
         })),
         backgroundColor: 'rgba(75, 192, 192, 0.6)',
       },
@@ -36,6 +37,7 @@ const GHOSwapChart = ({ data }) => {
         data: data.filter(item => item.gho_buysell === 'sell').map(item => ({
           x: new Date(item.block_timestamp.value),
           y: item.gho_swapped || 0,
+          gho_price_usd: item.gho_price_usd,
         })),
         backgroundColor: 'rgba(255, 99, 132, 0.6)',
       },
@@ -76,7 +78,7 @@ const GHOSwapChart = ({ data }) => {
             return [
               `Time: ${dataPoint.x.toLocaleString()}`,
               `Amount: ${dataPoint.y.toLocaleString()} GHO`,
-              `Price: $${context.dataset.data[context.dataIndex].gho_price_usd?.toFixed(4) || 'N/A'}`,
+              `Price: $${dataPoint.gho_price_usd?.toFixed(4) || 'N/A'}`,
             ];
           },
         },
