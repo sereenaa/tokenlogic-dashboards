@@ -12,10 +12,18 @@ export default async function handler(req, res) {
     return;
   }
 
+  const { days } = req.query; // Get the number of days from the query parameters
+  let limit;
+  if (days === "all") { 
+    limit = ''
+  } else {
+    limit = `limit ${days ? parseInt(days, 10) : 30}` // Default to 30 days if not provided
+  }
+
   try {
-    const query = 'select * from `tokenlogic-data-dev.datamart_gho.gho_swaps` order by block_timestamp desc limit 200';
+    const query = `select * from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_apr\` order by date desc ${limit}`;
     const [rows] = await bigquery.query({ query });
-    // console.log(rows);
+    console.log(rows);
     res.status(200).json(rows);
   } catch (error) {
     console.error('Error fetching data from BigQuery:', error);
