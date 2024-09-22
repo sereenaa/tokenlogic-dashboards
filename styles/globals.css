@@ -7,6 +7,9 @@
   --foreground: #171717;
   --light-background: #f0f0f0; /* Light mode background color for boxes */
   --dark-background: #2c2c2c; /* Dark mode background color for boxes */
+  --button-bg: #e0e0e0; /* Light mode button background */
+  --button-text: #000000; /* Light mode button text */
+  --button-hover-bg: #d0d0d0; /* Light mode button hover background */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,6 +18,9 @@
     --foreground: #ededed;
     --light-background: #2c2c2c; /* Dark mode background color for boxes */
     --dark-background: #1a1a1a; /* Darker background color for boxes */
+    --button-bg: #333333; /* Dark mode button background */
+    --button-text: #ffffff; /* Dark mode button text */
+    --button-hover-bg: #444444; /* Dark mode button hover background */
   }
 }
 

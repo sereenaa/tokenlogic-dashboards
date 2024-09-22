@@ -32,7 +32,7 @@ export default function AaveDash2() {
           <option value="all">All Time</option>
         </select>
       </div>
-      <div className="flex-grow">
+      <div>
         <AaveInvestmentAnalysisChart data={data} />
       </div>
     </main>
