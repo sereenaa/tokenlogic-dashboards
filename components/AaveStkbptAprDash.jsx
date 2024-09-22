@@ -10,7 +10,7 @@ export default function AaveDash() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`/api/bigquery/aaveStkbptQuery?days=${days}`);
+      const response = await fetch(`/api/bigquery/aaveStkbptAprQuery?days=${days}`);
       const result = await response.json();
       setData(result);
     }
@@ -19,17 +19,17 @@ export default function AaveDash() {
 
   useEffect(() => {
     async function fetchSwapFeeApr() {
-      const response = await fetch(`/api/bigquery/aaveStkbptQuery?days=${days}&type=swapFeeApr`);
+      const response = await fetch(`/api/bigquery/aaveStkbptAprQuery?days=${days}&type=swapFeeApr`);
       const result = await response.json();
       setSwapFeeApr(result[0].average);
     }
     async function fetchEmissionsApr() {
-      const response = await fetch(`/api/bigquery/aaveStkbptQuery?days=${days}&type=emissionsApr`);
+      const response = await fetch(`/api/bigquery/aaveStkbptAprQuery?days=${days}&type=emissionsApr`);
       const result = await response.json();
       setEmissionsApr(result[0].average);
     }
     async function fetchTotalLpApr() {
-      const response = await fetch(`/api/bigquery/aaveStkbptQuery?days=${days}&type=totalLpApr`);
+      const response = await fetch(`/api/bigquery/aaveStkbptAprQuery?days=${days}&type=totalLpApr`);
       const result = await response.json();
       setTotalLpApr(result[0].average);
     }
@@ -38,7 +38,6 @@ export default function AaveDash() {
     fetchTotalLpApr();
   }, [days]); // Fetch APR data when 'days' changes
 
-  console.log(swapFeeApr)
 
   return (
     <main className="container mx-auto p-4 h-screen flex flex-col bg-background text-foreground">

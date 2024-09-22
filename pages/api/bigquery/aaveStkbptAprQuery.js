@@ -13,9 +13,7 @@ export default async function handler(req, res) {
   }
 
   const { days, type } = req.query; // Get the number of days from the query parameters
-  console.log(days)
   const numericDays = days ? parseInt(days.replace(/\D/g, ''), 10) : 30; // Extract numeric part and default to 30 if not provided
-  console.log(numericDays)
   let limit;
   if (days === "all") { 
     limit = ''
@@ -52,11 +50,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    // const query = `select * from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_apr\` order by date desc ${limit}`;
     const [rows] = await bigquery.query({ query });
-    if (type !== undefined) {
-      console.log(rows);
-    }
     res.status(200).json(rows);
   } catch (error) {
     console.error('Error fetching data from BigQuery:', error);
