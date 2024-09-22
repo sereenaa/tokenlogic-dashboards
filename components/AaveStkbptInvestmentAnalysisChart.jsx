@@ -3,6 +3,7 @@ import { Bar, Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
+  LineController,
   LinearScale,
   BarElement,
   LineElement,
@@ -15,6 +16,7 @@ import 'chartjs-adapter-date-fns';
 
 ChartJS.register(
   CategoryScale,
+  LineController,
   LinearScale,
   BarElement,
   LineElement,
