@@ -123,9 +123,9 @@ export default function AaveDash2() {
           </tr>
           <tr>
             <td className="text-right">Total (LP)</td>
-            <td className="text-right">{Number(userLpTokens).toLocaleString()}</td>
+            <td className="text-right">{Number(userLpTokens).toLocaleString()} BPTs</td>
             <td className="text-right">${Number(initialTotalValue).toLocaleString()}</td>
-            <td className="text-right">{Number(userLpTokens).toLocaleString()}</td>
+            <td className="text-right">{Number(userLpTokens).toLocaleString()} BPTs</td>
             <td className="text-right">${Number(currentTotalValue).toLocaleString()}</td>
           </tr>
           <tr>
