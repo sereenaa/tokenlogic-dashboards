@@ -191,6 +191,7 @@ const AaveInvestmentAnalysisChart = ({ data }) => {
             ];
   
             if (showBreakdown) {
+              const leverageRatio = (dataPoint.lp_user_aave_token_balance / dataPoint.non_lp_user_aave_token_balance).toFixed(2);
               tooltipItems.push(
                 `AAVE Token Price: $${(dataPoint.aave_usd_price || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
                 `wstETH Token Price: $${(dataPoint.wsteth_usd_price || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
@@ -200,7 +201,8 @@ const AaveInvestmentAnalysisChart = ({ data }) => {
                 `Non-LP User Total Value: $${(dataPoint.non_lp_user_total_value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
                 `Non-LP User AAVE Tokens: ${(dataPoint.non_lp_user_aave_token_balance || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
                 `Non-LP User wstETH Tokens: ${(dataPoint.non_lp_user_wsteth_token_balance || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
-                `Impermanent Loss: ${(dataPoint.manual_il || 0).toFixed(2)}%`
+                `Impermanent Loss: ${(dataPoint.manual_il || 0).toFixed(2)}%`,
+                `Leverage Ratio: ${leverageRatio}`
               );
             }
   
