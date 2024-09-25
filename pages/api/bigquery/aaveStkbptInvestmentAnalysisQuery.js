@@ -29,6 +29,7 @@ export default async function handler(req, res) {
       select 
         lp_user_aave_token_balance
         , aave_usd_price
+        , user_lp_tokens
         , lp_user_aave_token_balance * aave_usd_price as lp_user_aave_token_value
         , lp_user_wsteth_token_balance
         , wsteth_usd_price

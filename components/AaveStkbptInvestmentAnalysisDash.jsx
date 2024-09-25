@@ -5,6 +5,8 @@ export default function AaveDash2() {
   const [data, setData] = useState([]);
   const [days, setDays] = useState('30d');
 
+  const [userLpTokens, setUserLpTokens] = useState(0);
+
   const [aaveInitialQty, setAaveInitialQty] = useState(0);
   const [aaveInitialValue, setAaveInitialValue] = useState(0);
   const [aaveCurrentQty, setAaveCurrentQty] = useState(0);
@@ -44,6 +46,7 @@ export default function AaveDash2() {
       const initialData = result[0];
       const currentData = result[1];
 
+      setUserLpTokens(initialData.user_lp_tokens.toFixed(2));
       setAaveInitialQty(initialData.lp_user_aave_token_balance.toFixed(2));
       setAaveInitialValue(initialData.lp_user_aave_token_value.toFixed(2));
       setAaveCurrentQty(currentData.lp_user_aave_token_balance.toFixed(2));
@@ -105,40 +108,42 @@ export default function AaveDash2() {
         </thead>
         <tbody>
           <tr>
-            <td className="text-right">AAVE</td>
+            <td className="text-right">AAVE (LP)</td>
             <td className="text-right">{Number(aaveInitialQty).toLocaleString()}</td>
             <td className="text-right">${Number(aaveInitialValue).toLocaleString()}</td>
             <td className="text-right">{Number(aaveCurrentQty).toLocaleString()}</td>
             <td className="text-right">${Number(aaveCurrentValue).toLocaleString()}</td>
           </tr>
           <tr>
-            <td className="text-right">wstETH</td>
+            <td className="text-right">wstETH (LP)</td>
             <td className="text-right">{Number(wstethInitialQty).toLocaleString()}</td>
             <td className="text-right">${Number(wstethInitialValue).toLocaleString()}</td>
             <td className="text-right">{Number(wstethCurrentQty).toLocaleString()}</td>
             <td className="text-right">${Number(wstethCurrentValue).toLocaleString()}</td>
           </tr>
           <tr>
-            <td className="text-right">Total</td>
-            <td className="text-right" colSpan="2">${Number(initialTotalValue).toLocaleString()}</td>
-            <td className="text-right" colSpan="2">${Number(currentTotalValue).toLocaleString()}</td>
+            <td className="text-right">Total (LP)</td>
+            <td className="text-right">{Number(userLpTokens).toLocaleString()}</td>
+            <td className="text-right">${Number(initialTotalValue).toLocaleString()}</td>
+            <td className="text-right">{Number(userLpTokens).toLocaleString()}</td>
+            <td className="text-right">${Number(currentTotalValue).toLocaleString()}</td>
           </tr>
           <tr>
-            <td className="text-right">AAVE (Non-LP)</td>
+            <td className="text-right">AAVE (Hold)</td>
             <td className="text-right">{Number(aaveNonLpInitialQty).toLocaleString()}</td>
             <td className="text-right">${Number(aaveNonLpInitialValue).toLocaleString()}</td>
             <td className="text-right">{Number(aaveNonLpCurrentQty).toLocaleString()}</td>
             <td className="text-right">${Number(aaveNonLpCurrentValue).toLocaleString()}</td>
           </tr>
           <tr>
-            <td className="text-right">wstETH (Non-LP)</td>
+            <td className="text-right">wstETH (Hold)</td>
             <td className="text-right">{Number(wstethNonLpInitialQty).toLocaleString()}</td>
             <td className="text-right">${Number(wstethNonLpInitialValue).toLocaleString()}</td>
             <td className="text-right">{Number(wstethNonLpCurrentQty).toLocaleString()}</td>
             <td className="text-right">${Number(wstethNonLpCurrentValue).toLocaleString()}</td>
           </tr>
           <tr>
-            <td className="text-right">Total (Non-LP)</td>
+            <td className="text-right">Total (Hold)</td>
             <td className="text-right" colSpan="2">${Number(initialTotalNonLpValue).toLocaleString()}</td>
             <td className="text-right" colSpan="2">${Number(currentTotalNonLpValue).toLocaleString()}</td>
           </tr>
