@@ -96,11 +96,11 @@ export default function AaveDash2() {
       <table className="table-auto w-full mb-4 text-table">
       <thead>
           <tr>
-            <th>Asset</th>
-            <th>Initial Deposit (Qty)</th>
-            <th>Initial Deposit ($)</th>
-            <th>Current Value (Qty)</th>
-            <th>Current Value ($)</th>
+            <th className="text-right">Asset</th>
+            <th className="text-right">Initial Deposit (Qty)</th>
+            <th className="text-right">Initial Deposit ($)</th>
+            <th className="text-right">Current Value (Qty)</th>
+            <th className="text-right">Current Value ($)</th>
           </tr>
         </thead>
         <tbody>
