@@ -12,21 +12,42 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { days } = req.query; // Get the number of days from the query parameters
+  const { days, type } = req.query; // Get the number of days from the query parameters
+  console.log(days, type)
 
   let query;
 
-  if (days === 'all') {
-    query = `SELECT * FROM \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\``;
-  } else {
-    const numericDays = parseInt(days, 10);
-    query = `SELECT * FROM \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\` order by block_hour desc limit ${numericDays}`;
+  if (type === 'data') {
+    if (days === 'all') {
+      query = `SELECT * FROM \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\``;
+    } else {
+      const numericDays = parseInt(days, 10);
+      query = `SELECT * FROM \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\` order by block_hour desc limit ${numericDays}`;
+    } 
+  } else if (type === 'values') {
+    query = `
+      select 
+        lp_user_aave_token_balance
+        , aave_usd_price
+        , lp_user_aave_token_balance * aave_usd_price as lp_user_aave_token_value
+        , lp_user_wsteth_token_balance
+        , wsteth_usd_price
+        , lp_user_wsteth_token_balance * wsteth_usd_price as lp_user_wsteth_token_value
+        , non_lp_user_aave_token_balance
+        , non_lp_user_wsteth_token_balance
+      from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\`
+      where block_hour = (select max(block_hour) from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\`)
+        or block_hour = (select min(block_hour) from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\`)
+      order by block_hour
+    `
   }
 
   try {
     console.log(query)
     const [rows] = await bigquery.query({ query });
-    console.log(rows)
+    if (type === 'values') {
+      console.log(rows)
+    }
     res.status(200).json(rows);
   } catch (error) {
     console.error('Error fetching data from BigQuery:', error);
