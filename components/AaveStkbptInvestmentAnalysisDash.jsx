@@ -4,8 +4,10 @@ import AaveInvestmentAnalysisChart from './AaveStkbptInvestmentAnalysisChart';
 export default function AaveDash2() {
   const [data, setData] = useState([]);
   const [days, setDays] = useState('30d');
+  console.log(days)
   const [showCompounding, setShowCompounding] = useState(false);
   const [frequency, setFrequency] = useState('1d');
+  console.log(frequency)
   const [compoundingData, setCompoundingData] = useState([]);
 
   const [userLpTokens, setUserLpTokens] = useState(0);
@@ -32,13 +34,24 @@ export default function AaveDash2() {
   const [initialTotalNonLpValue, setInitialTotalNonLpValue] = useState(0);
   const [currentTotalNonLpValue, setCurrentTotalNonLpValue] = useState(0);
 
+  async function fetchData() {
+    const response = await fetch(`/api/bigquery/aaveStkbptInvestmentAnalysisQuery?days=${days}&type=data`);
+    const result = await response.json();
+    setData(result);
+  };
+
+  async function fetchCompoundingData() {
+    const response = await fetch(`/api/bigquery/aaveStkbptInvestmentAnalysisQuery?days=${days}&type=compounding&frequency=${frequency}`);
+    const result = await response.json();
+    setCompoundingData(result);
+  };
+
   useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(`/api/bigquery/aaveStkbptInvestmentAnalysisQuery?days=${days}&type=data`);
-      const result = await response.json();
-      setData(result);
-    }
+    
     fetchData();
+    if (showCompounding) {
+      fetchCompoundingData();
+    }
   }, [days]); // Fetch data when 'days' changes
 
   useEffect(() => {
@@ -82,15 +95,9 @@ export default function AaveDash2() {
 
   useEffect(() => {
     if (showCompounding) {
-      async function fetchCompoundingData() {
-        const response = await fetch(`/api/bigquery/aaveStkbptInvestmentAnalysisQuery?type=compounding&frequency=${frequency}`);
-        const result = await response.json();
-        setCompoundingData(result);
-      }
       fetchCompoundingData();
     }
   }, [showCompounding, frequency]); // Fetch compounding data when 'showCompounding' or 'frequency' changes
-
 
   return (
     <main className="container mx-auto p-4 flex-grow h-screen flex flex-col bg-background text-foreground">
@@ -170,15 +177,27 @@ export default function AaveDash2() {
             backgroundColor: 'var(--button-bg)',
             color: 'var(--button-text)',
             border: '2px solid var(--button-outline)',
-            fontSize: '12px',
-            padding: '4px 8px',
+            fontSize: '13px',
+            padding: '8px 8px',
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = 'var(--button-hover-bg)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = 'var(--button-bg)';
           }}
         >
           {showCompounding ? 'Hide Compounding Data' : 'Show Compounding Data'}
         </button>
         {showCompounding && (
           <div className="flex items-center">
-            <label htmlFor="frequency" className="text-sm mr-2">Choose compounding frequency:</label>
+            <label 
+              htmlFor="frequency" 
+              className="mr-2"
+              style={{
+                fontSize: '13px',
+              }}
+            >Choose compounding frequency:</label>
             <select
               id="frequency"
               value={frequency}

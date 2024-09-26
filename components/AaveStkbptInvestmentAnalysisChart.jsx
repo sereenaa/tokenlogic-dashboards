@@ -27,7 +27,7 @@ ChartJS.register(
 );
 
 
-const AaveInvestmentAnalysisChart = ({ data }) => {
+const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
   const [showBreakdown, setShowBreakdown] = useState(false);
 
   const formatDate = (dateString) => {
@@ -49,6 +49,7 @@ const AaveInvestmentAnalysisChart = ({ data }) => {
         backgroundColor: '#5AB379',
         fill: false,
         pointRadius: 0, // Remove dots
+        borderWidth: 2, // Thinner line
       },
       {
         type: 'line',
@@ -61,6 +62,7 @@ const AaveInvestmentAnalysisChart = ({ data }) => {
         backgroundColor: '#2654B8',
         fill: false,
         pointRadius: 0, // Remove dots
+        borderWidth: 2, // Thinner line
       },
       ...(showBreakdown ? [
         {
@@ -123,6 +125,7 @@ const AaveInvestmentAnalysisChart = ({ data }) => {
           backgroundColor: '#CD506A',
           fill: false,
           pointRadius: 0, // Remove dots
+          borderWidth: 2, // Thinner line
         },
         {
           type: 'line',
@@ -144,6 +147,44 @@ const AaveInvestmentAnalysisChart = ({ data }) => {
           backgroundColor: '#F2A740',
           fill: false,
           pointRadius: 0, // Remove dots
+          borderWidth: 2, // Thinner line
+        },
+      ] : []),
+      ...(compoundingData.length > 0 ? [
+        {
+          type: 'line',
+          label: "Compounded Total Value",
+          data: compoundingData.map(item => ({
+            x: formatDate(item.date.value),
+            y: item.user_usd_total_value || 0, // Adjust based on frequency
+          })),
+          borderColor: '#FF5733', // Different color for compounded data
+          backgroundColor: '#FF5733',
+          fill: false,
+          pointRadius: 0, // Remove dots
+          borderWidth: 2, // Thinner line
+        },
+        {
+          type: 'bar',
+          label: "Compounded AAVE Value",
+          data: compoundingData.map(item => ({
+            x: formatDate(item.date.value),
+            y: item.aave_usd_value || 0, // Adjust based on frequency
+          })),
+          backgroundColor: 'rgba(255, 87, 51, 0.5)', // Semi-transparent for overlay
+          barThickness: 'flex',
+          maxBarThickness: 20,
+        },
+        {
+          type: 'bar',
+          label: "Compounded wstETH Value",
+          data: compoundingData.map(item => ({
+            x: formatDate(item.date.value),
+            y: item.wsteth_usd_value || 0, // Adjust based on frequency
+          })),
+          backgroundColor: 'rgba(255, 87, 51, 0.3)', // Semi-transparent for overlay
+          barThickness: 'flex',
+          maxBarThickness: 20,
         },
       ] : [])
     ],
@@ -228,7 +269,7 @@ const AaveInvestmentAnalysisChart = ({ data }) => {
           backgroundColor: 'var(--button-bg)',
           color: 'var(--button-text)',
           border: '2px solid var(--button-outline)',
-          fontSize: '12px',
+          fontSize: '13px',
           padding: '4px 8px',
         }}
         onMouseEnter={(e) => {

@@ -16,6 +16,14 @@ export default async function handler(req, res) {
   console.log(days, type, frequency)
 
   let query;
+  const numericDays = parseInt(days, 10);
+  console.log(numericDays)
+  let limitQuery;
+  if (days === 'all') {
+    limitQuery = '';
+  } else {
+    limitQuery = `limit ${numericDays}`;
+  }
 
   if (type === 'data') {
     if (days === 'all') {
@@ -38,64 +46,68 @@ export default async function handler(req, res) {
         FROM \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\`
       `;
     } else {
-      const numericDays = parseInt(days, 10);
       query = `SELECT * FROM \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\` order by block_hour desc limit ${numericDays}`;
     } 
   } else if (type === 'compounding') {
-    if (frequency === '1 day') {
+    if (frequency === '1d') {
       query = `
         select 
           date
-          , user_usd_total_value_1_day
-          , aave_usd_value_1_day
-          , wsteth_usd_value_1_day
-          , aave_token_balance_1_day
-          , wsteth_token_balance_1_day
+          , user_usd_total_value_1_day as user_usd_total_value
+          , aave_usd_value_1_day as aave_usd_value
+          , wsteth_usd_value_1_day as wsteth_usd_value
+          , aave_token_balance_1_day as aave_token_balance
+          , wsteth_token_balance_1_day as wsteth_token_balance
         from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis\`
+        order by date desc ${limitQuery}
       `;
-    } else if (frequency === '7 days') {
+    } else if (frequency === '7d') {
       query = `
         select 
           date
-          , user_usd_total_value_7_days
-          , aave_usd_value_7_days
-          , wsteth_usd_value_7_days
-          , aave_token_balance_7_days
-          , wsteth_token_balance_7_days
+          , user_usd_total_value_7_days as user_usd_total_value
+          , aave_usd_value_7_days as aave_usd_value
+          , wsteth_usd_value_7_days as wsteth_usd_value
+          , aave_token_balance_7_days as aave_token_balance
+          , wsteth_token_balance_7_days as wsteth_token_balance
         from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis\`
+        order by date desc ${limitQuery}
       `;
-    } else if (frequency === '14 days') {
+    } else if (frequency === '14d') {
       query = `
         select 
           date
-          , user_usd_total_value_14_days
-          , aave_usd_value_14_days
-          , wsteth_usd_value_14_days
-          , aave_token_balance_14_days
-          , wsteth_token_balance_14_days
+          , user_usd_total_value_14_days as user_usd_total_value
+          , aave_usd_value_14_days as aave_usd_value
+          , wsteth_usd_value_14_days as wsteth_usd_value
+          , aave_token_balance_14_days as aave_token_balance
+          , wsteth_token_balance_14_days as wsteth_token_balance
         from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis\`
+        order by date desc ${limitQuery}
       `;
-    } else if (frequency === '30 days') {
+    } else if (frequency === '30d') {
       query = `
         select 
           date
-          , user_usd_total_value_30_days
-          , aave_usd_value_30_days
-          , wsteth_usd_value_30_days
-          , aave_token_balance_30_days
-          , wsteth_token_balance_30_days
+          , user_usd_total_value_30_days as user_usd_total_value
+          , aave_usd_value_30_days as aave_usd_value
+          , wsteth_usd_value_30_days as wsteth_usd_value
+          , aave_token_balance_30_days as aave_token_balance
+          , wsteth_token_balance_30_days as wsteth_token_balance
         from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis\`
+        order by date desc ${limitQuery}
       `;
-    } else if (frequency === '90 days') {
+    } else if (frequency === '90d') {
       query = `
         select 
           date
-          , user_usd_total_value_90_days
-          , aave_usd_value_90_days
-          , wsteth_usd_value_90_days
-          , aave_token_balance_90_days
-          , wsteth_token_balance_90_days
+          , user_usd_total_value_90_days as user_usd_total_value
+          , aave_usd_value_90_days as aave_usd_value
+          , wsteth_usd_value_90_days as wsteth_usd_value
+          , aave_token_balance_90_days as aave_token_balance
+          , wsteth_token_balance_90_days as wsteth_token_balance
         from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis\`
+        order by date desc ${limitQuery}
       `;
     }
   } else if (type === 'values') {
@@ -118,13 +130,13 @@ export default async function handler(req, res) {
   }
 
   try {
-    // console.log(query)
+    console.log(query)
 
     const [rows] = await bigquery.query({ query });
 
-    // if (type === 'data') {
-    //   console.log(rows)
-    // }
+    if (type === 'compounding') {
+      console.log(rows)
+    }
     res.status(200).json(rows);
   } catch (error) {
     console.error('Error fetching data from BigQuery:', error);
