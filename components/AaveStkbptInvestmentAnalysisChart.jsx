@@ -179,7 +179,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
             x: formatDate(item.date.value),
             y: item.wsteth_usd_value || 0, 
           })),
-          backgroundColor: '#ffa500', 
+          backgroundColor: '#FF7600', 
           barThickness: 20,
         },
       ] : [])
