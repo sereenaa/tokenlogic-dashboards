@@ -4,6 +4,9 @@ import AaveInvestmentAnalysisChart from './AaveStkbptInvestmentAnalysisChart';
 export default function AaveDash2() {
   const [data, setData] = useState([]);
   const [days, setDays] = useState('30d');
+  const [showCompounding, setShowCompounding] = useState(false);
+  const [frequency, setFrequency] = useState('1d');
+  const [compoundingData, setCompoundingData] = useState([]);
 
   const [userLpTokens, setUserLpTokens] = useState(0);
 
@@ -77,25 +80,22 @@ export default function AaveDash2() {
     fetchValues();
   }, []); // Fetch data on page load
 
+  useEffect(() => {
+    if (showCompounding) {
+      async function fetchCompoundingData() {
+        const response = await fetch(`/api/bigquery/aaveStkbptInvestmentAnalysisQuery?type=compounding&frequency=${frequency}`);
+        const result = await response.json();
+        setCompoundingData(result);
+      }
+      fetchCompoundingData();
+    }
+  }, [showCompounding, frequency]); // Fetch compounding data when 'showCompounding' or 'frequency' changes
 
 
   return (
-    <main className="container mx-auto p-4 h-screen flex flex-col bg-background text-foreground">
+    <main className="container mx-auto p-4 flex-grow h-screen flex flex-col bg-background text-foreground">
       <h1 className="text-2xl font-bold mb-4">AAVE stkBPT $100k Investment Analysis</h1>
-      <div className="flex items-center mb-4">
-        <label htmlFor="days" className="mr-2"></label>
-        <select
-          id="days"
-          value={days}
-          onChange={(e) => setDays(e.target.value)}
-          className="p-2 border rounded bg-background text-foreground"
-        >
-          <option value="30d">30d</option>
-          <option value="90d">90d</option>
-          <option value="180d">180d</option>
-          <option value="all">All Time</option>
-        </select>
-      </div>
+
       <table className="table-auto w-full mb-4 text-table">
       <thead>
           <tr>
@@ -149,8 +149,54 @@ export default function AaveDash2() {
           </tr>
         </tbody>
       </table>
-      <div>
-        <AaveInvestmentAnalysisChart data={data} />
+
+      <div className="flex items-center mb-4">
+        <label htmlFor="days" className="mr-2"></label>
+        <select
+          id="days"
+          value={days}
+          onChange={(e) => setDays(e.target.value)}
+          className="p-2 border rounded bg-background text-foreground"
+        >
+          <option value="30d">30d</option>
+          <option value="90d">90d</option>
+          <option value="180d">180d</option>
+          <option value="all">All Time</option>
+        </select>
+        <button
+          onClick={() => setShowCompounding(!showCompounding)}
+          className="mx-2 px-4 rounded transition duration-300 button-outline"
+          style={{
+            backgroundColor: 'var(--button-bg)',
+            color: 'var(--button-text)',
+            border: '2px solid var(--button-outline)',
+            fontSize: '12px',
+            padding: '4px 8px',
+          }}
+        >
+          {showCompounding ? 'Hide Compounding Data' : 'Show Compounding Data'}
+        </button>
+        {showCompounding && (
+          <div className="flex items-center">
+            <label htmlFor="frequency" className="text-sm mr-2">Choose compounding frequency:</label>
+            <select
+              id="frequency"
+              value={frequency}
+              onChange={(e) => setFrequency(e.target.value)}
+              className="p-2 border rounded bg-background text-foreground"
+            >
+              <option value="1d">1d</option>
+              <option value="7d">7d</option>
+              <option value="14d">14d</option>
+              <option value="30d">30d</option>
+              <option value="90d">90d</option>
+            </select>
+          </div>
+        )}
+      </div>
+
+      <div className="flex-grow">
+        <AaveInvestmentAnalysisChart data={data} compoundingData={compoundingData} />
       </div>
     </main>
   );

@@ -20,15 +20,13 @@ export default function Home() {
     <div
       className={`${geistSans.variable} ${geistMono.variable} flex flex-col min-h-screen p-4 sm:p-8 font-[family-name:var(--font-geist-sans)]`}
     >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start flex-grow">
         <h1>My Dashboards</h1>
         {/* <GhoSwapDash /> */}
         <AaveDash />
         <AaveDash2 />
+        <p className="text-sm italic">Sez @ Tokenlogic</p>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        Sez @ TokenLogic
-      </footer>
     </div>
   );
 }

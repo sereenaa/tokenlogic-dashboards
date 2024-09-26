@@ -7,8 +7,9 @@
   --foreground: #171717;
   --light-background: #f0f0f0; /* Light mode background color for boxes */
   --dark-background: #2c2c2c; /* Dark mode background color for boxes */
-  --button-bg: #f0f0f0; /* Light mode button background */
+  --button-bg: #ffffff; /* Light mode button background */
   --button-text: #000000; /* Light mode button text */
+  --button-outline: #f0f0f0; /* Light mode button outline */
   --button-hover-bg: #e0e0e0; /* Light mode button hover background */
   --table-bg: #fafafa; /* Lighter table background color */
   --table-text: var(--foreground); /* Table text same as page text */
@@ -58,6 +59,17 @@ body {
     padding: 8px; /* Adjust the padding as needed */
     border: none; /* Ensure no borders */
     box-shadow: none; /* Ensure no box shadows */
+  }
+  .button-outline {
+    border: 2px solid var(--button-outline); /* Define the outline */
+    background-color: var(--button-bg); /* Ensure the background color is set */
+    color: var(--button-text); /* Ensure the text color is set */
+    padding: 8px 16px; /* Adjust padding as needed */
+    border-radius: 4px; /* Adjust border radius as needed */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+  }
+  .button-outline:hover {
+    background-color: var(--button-hover-bg); /* Change background on hover */
   }
 }
 

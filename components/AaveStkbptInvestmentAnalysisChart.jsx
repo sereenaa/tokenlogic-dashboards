@@ -42,7 +42,7 @@ const AaveInvestmentAnalysisChart = ({ data }) => {
         type: 'line',
         label: "LP User Total Value",
         data: data.map(item => ({
-          x: new Date(item.block_hour.value),
+          x: formatDate(item.block_hour.value), // Match x value with bar dataset
           y: item.lp_user_total_value || 0,
         })),
         borderColor: '#5AB379', 
@@ -54,7 +54,7 @@ const AaveInvestmentAnalysisChart = ({ data }) => {
         type: 'line',
         label: "Non-LP User Total Value",
         data: data.map(item => ({
-          x: new Date(item.block_hour.value),
+          x: formatDate(item.block_hour.value), // Match x value with bar dataset
           y: item.non_lp_user_total_value || 0,
         })),
         borderColor: '#2654B8', // Orange
@@ -107,7 +107,7 @@ const AaveInvestmentAnalysisChart = ({ data }) => {
           type: 'line',
           label: "Non-LP User's AAVE Token Value",
           data: data.map(item => ({
-            x: new Date(item.block_hour.value),
+            x: formatDate(item.block_hour.value), // Match x value with bar dataset
             y: item.non_lp_user_aave_value || 0,
             lp_user_total_value: item.lp_user_total_value,
             non_lp_user_total_value: item.non_lp_user_total_value,
@@ -128,7 +128,7 @@ const AaveInvestmentAnalysisChart = ({ data }) => {
           type: 'line',
           label: "Non-LP User's wstETH Token Value",
           data: data.map(item => ({
-            x: new Date(item.block_hour.value),
+            x: formatDate(item.block_hour.value), // Match x value with bar dataset
             y: item.non_lp_user_wsteth_value || 0,
             lp_user_total_value: item.lp_user_total_value,
             non_lp_user_total_value: item.non_lp_user_total_value,
@@ -176,6 +176,9 @@ const AaveInvestmentAnalysisChart = ({ data }) => {
       },
     },
     plugins: {
+      legend: {
+        position: 'bottom',
+      },
       tooltip: {
         mode: 'nearest',
         intersect: false,
@@ -190,7 +193,7 @@ const AaveInvestmentAnalysisChart = ({ data }) => {
               `Value: $${dataPoint.y.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
             ];
   
-            if (showBreakdown) {
+            if (showBreakdown && context.dataset.label !== "LP User Total Value" && context.dataset.label !== "Non-LP User Total Value") {
               const leverageRatio = (dataPoint.lp_user_aave_token_balance / dataPoint.non_lp_user_aave_token_balance).toFixed(2);
               tooltipItems.push(
                 `AAVE Token Price: $${(dataPoint.aave_usd_price || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
@@ -214,13 +217,19 @@ const AaveInvestmentAnalysisChart = ({ data }) => {
   };
 
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
       <button
         onClick={() => setShowBreakdown(!showBreakdown)}
-        className="mx-2 mb-2 px-4 py-2 rounded transition duration-300"
+        className="mx-2 mb-2 px-4 py-2 rounded transition duration-300 button-outline"
         style={{
+          position: 'absolute',
+          top: '13px',
+          left: '81px',
           backgroundColor: 'var(--button-bg)',
           color: 'var(--button-text)',
+          border: '2px solid var(--button-outline)',
+          fontSize: '12px',
+          padding: '4px 8px',
         }}
         onMouseEnter={(e) => {
           e.target.style.backgroundColor = 'var(--button-hover-bg)';
@@ -228,7 +237,7 @@ const AaveInvestmentAnalysisChart = ({ data }) => {
         onMouseLeave={(e) => {
           e.target.style.backgroundColor = 'var(--button-bg)';
         }}
-        >
+      >
         {showBreakdown ? 'Hide AAVE/wstETH Breakdown' : 'Show AAVE/wstETH Breakdown'}
       </button>
       <Bar data={chartData} options={options} />
