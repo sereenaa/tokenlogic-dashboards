@@ -49,7 +49,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
         backgroundColor: '#5AB379',
         fill: false,
         pointRadius: 0, // Remove dots
-        borderWidth: 2, // Thinner line
+        borderWidth: 3, // Thinner line
       },
       {
         type: 'line',
@@ -62,29 +62,9 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
         backgroundColor: '#2654B8',
         fill: false,
         pointRadius: 0, // Remove dots
-        borderWidth: 2, // Thinner line
+        borderWidth: 3, // Thinner line
       },
       ...(showBreakdown ? [
-        {
-          type: 'bar',
-          label: "LP User's AAVE Token Value",
-          data: data.map(item => ({
-            x: formatDate(item.block_hour.value),
-            y: item.lp_user_aave_value || 0,
-            lp_user_total_value: item.lp_user_total_value,
-            non_lp_user_total_value: item.non_lp_user_total_value,
-            manual_il: item.manual_il,
-            lp_user_aave_token_balance: item.lp_user_aave_token_balance,
-            non_lp_user_aave_token_balance: item.non_lp_user_aave_token_balance,
-            aave_usd_price: item.aave_usd_price,
-            lp_user_wsteth_token_balance: item.lp_user_wsteth_token_balance,
-            non_lp_user_wsteth_token_balance: item.non_lp_user_wsteth_token_balance,
-            wsteth_usd_price: item.wsteth_usd_price,
-          })),
-          backgroundColor: '#E68A9A',
-          barThickness: 'flex',
-          maxBarThickness: 20,
-        },
         {
           type: 'bar',
           label: "LP User's wstETH Token Value",
@@ -102,8 +82,26 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
             wsteth_usd_price: item.wsteth_usd_price,
           })),
           backgroundColor: '#F7C77A', // Light orange
-          barThickness: 'flex',
-          maxBarThickness: 20,
+          barThickness: 20,
+        },
+        {
+          type: 'bar',
+          label: "LP User's AAVE Token Value",
+          data: data.map(item => ({
+            x: formatDate(item.block_hour.value),
+            y: item.lp_user_aave_value || 0,
+            lp_user_total_value: item.lp_user_total_value,
+            non_lp_user_total_value: item.non_lp_user_total_value,
+            manual_il: item.manual_il,
+            lp_user_aave_token_balance: item.lp_user_aave_token_balance,
+            non_lp_user_aave_token_balance: item.non_lp_user_aave_token_balance,
+            aave_usd_price: item.aave_usd_price,
+            lp_user_wsteth_token_balance: item.lp_user_wsteth_token_balance,
+            non_lp_user_wsteth_token_balance: item.non_lp_user_wsteth_token_balance,
+            wsteth_usd_price: item.wsteth_usd_price,
+          })),
+          backgroundColor: '#E68A9A',
+          barThickness: 12,
         },
         {
           type: 'line',
@@ -125,7 +123,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
           backgroundColor: '#CD506A',
           fill: false,
           pointRadius: 0, // Remove dots
-          borderWidth: 2, // Thinner line
+          borderWidth: 3, // Thinner line
         },
         {
           type: 'line',
@@ -147,44 +145,42 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
           backgroundColor: '#F2A740',
           fill: false,
           pointRadius: 0, // Remove dots
-          borderWidth: 2, // Thinner line
+          borderWidth: 3, // Thinner line
         },
       ] : []),
-      ...(compoundingData.length > 0 ? [
+      ...(compoundingData && compoundingData.length > 0 ? [
         {
           type: 'line',
           label: "Compounded Total Value",
           data: compoundingData.map(item => ({
             x: formatDate(item.date.value),
-            y: item.user_usd_total_value || 0, // Adjust based on frequency
+            y: item.user_usd_total_value || 0, 
           })),
-          borderColor: '#FF5733', // Different color for compounded data
-          backgroundColor: '#FF5733',
+          borderColor: '#000000', // Different color for compounded data
+          backgroundColor: '#000000',
           fill: false,
           pointRadius: 0, // Remove dots
-          borderWidth: 2, // Thinner line
+          borderWidth: 3, // Thinner line
         },
         {
           type: 'bar',
           label: "Compounded AAVE Value",
           data: compoundingData.map(item => ({
             x: formatDate(item.date.value),
-            y: item.aave_usd_value || 0, // Adjust based on frequency
+            y: item.aave_usd_value || 0,
           })),
-          backgroundColor: 'rgba(255, 87, 51, 0.5)', // Semi-transparent for overlay
-          barThickness: 'flex',
-          maxBarThickness: 20,
+          backgroundColor: '#EE6B6E', 
+          barThickness: 12,
         },
         {
           type: 'bar',
           label: "Compounded wstETH Value",
           data: compoundingData.map(item => ({
             x: formatDate(item.date.value),
-            y: item.wsteth_usd_value || 0, // Adjust based on frequency
+            y: item.wsteth_usd_value || 0, 
           })),
-          backgroundColor: 'rgba(255, 87, 51, 0.3)', // Semi-transparent for overlay
-          barThickness: 'flex',
-          maxBarThickness: 20,
+          backgroundColor: '#ffa500', 
+          barThickness: 20,
         },
       ] : [])
     ],
@@ -195,6 +191,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
     maintainAspectRatio: true,
     scales: {
       x: {
+        stacked: true,
         type: 'time',
         time: {
           unit: 'day',
@@ -205,6 +202,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
         },
       },
       y: {
+        stacked: false,
         title: {
           display: true,
           text: 'Value (USD)',
@@ -222,7 +220,9 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
       },
       tooltip: {
         mode: 'nearest',
-        intersect: false,
+        // mode: 'index',
+        // intersect: false,
+        intersect: true,
         callbacks: {
           title: (context) => {
             const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -231,10 +231,16 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
           label: (context) => {
             const dataPoint = context.raw;
             const tooltipItems = [
+              `Item: ${context.dataset.label || 'N/A'}`, // Add item name
               `Value: $${dataPoint.y.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
             ];
   
-            if (showBreakdown && context.dataset.label !== "LP User Total Value" && context.dataset.label !== "Non-LP User Total Value") {
+            if (showBreakdown 
+                && context.dataset.label !== "LP User Total Value" 
+                && context.dataset.label !== "Non-LP User Total Value"
+                && context.dataset.label !== "Compounded Total Value"
+                && context.dataset.label !== "Compounded AAVE Value"
+                && context.dataset.label !== "Compounded wstETH Value") {
               const leverageRatio = (dataPoint.lp_user_aave_token_balance / dataPoint.non_lp_user_aave_token_balance).toFixed(2);
               tooltipItems.push(
                 `AAVE Token Price: $${(dataPoint.aave_usd_price || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
@@ -255,6 +261,8 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
         },
       },
     },
+    barPercentage: 0.5, // Adjust bar width
+    categoryPercentage: 0.5, // Adjust bar width
   };
 
   return (

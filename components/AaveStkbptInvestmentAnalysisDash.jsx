@@ -215,7 +215,10 @@ export default function AaveDash2() {
       </div>
 
       <div className="flex-grow">
-        <AaveInvestmentAnalysisChart data={data} compoundingData={compoundingData} />
+        <AaveInvestmentAnalysisChart 
+          data={data} 
+          compoundingData={showCompounding ? compoundingData : null}  
+        />
       </div>
     </main>
   );
