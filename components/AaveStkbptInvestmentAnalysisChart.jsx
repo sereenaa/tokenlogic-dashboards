@@ -123,7 +123,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
           borderWidth: 3, // Thinner line
         },
       ] : []), 
-      ...(compoundingData && compoundingData.length > 0 ? [
+      ...(showBreakdown && compoundingData && compoundingData.length > 0 ? [
         {
           type: 'bar',
           label: "Compounded wstETH Value",
@@ -178,7 +178,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
           borderWidth: 3, // Thinner line
         },
       ] : []), 
-      ...(compoundingData && compoundingData.length > 0 ? [
+      ...(showBreakdown && compoundingData && compoundingData.length > 0 ? [
         {
           type: 'bar',
           label: "Compounded AAVE Value",
@@ -189,6 +189,8 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
           backgroundColor: '#EE6B6E', 
           barThickness: compoundThickness,
         },
+      ] : []),
+      ...(compoundingData && compoundingData.length > 0 ? [
         {
           type: 'line',
           label: "Compounded Total Value",
