@@ -65,7 +65,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
         backgroundColor: '#5AB379',
         fill: false,
         pointRadius: 0, // Remove dots
-        borderWidth: 2, // Thinner line
+        borderWidth: 3, // Thinner line
       },
       {
         type: 'line',
@@ -78,7 +78,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
         backgroundColor: '#2654B8',
         fill: false,
         pointRadius: 0, // Remove dots
-        borderWidth: 2, // Thinner line
+        borderWidth: 3, // Thinner line
       },
       ...(showBreakdown ? [
         {
@@ -120,7 +120,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
           backgroundColor: '#F2A740',
           fill: false,
           pointRadius: 0, // Remove dots
-          borderWidth: 2, // Thinner line
+          borderWidth: 3, // Thinner line
         },
       ] : []), 
       ...(compoundingData && compoundingData.length > 0 ? [
@@ -175,7 +175,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
           backgroundColor: '#CD506A',
           fill: false,
           pointRadius: 0, // Remove dots
-          borderWidth: 2, // Thinner line
+          borderWidth: 3, // Thinner line
         },
       ] : []), 
       ...(compoundingData && compoundingData.length > 0 ? [
@@ -200,7 +200,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
           backgroundColor: '#000000',
           fill: false,
           pointRadius: 0, // Remove dots
-          borderWidth: 2, // Thinner line
+          borderWidth: 3, // Thinner line
         },
       ] : []),
     ],
