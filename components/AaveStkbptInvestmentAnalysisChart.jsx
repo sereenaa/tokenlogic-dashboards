@@ -196,8 +196,8 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
             x: formatDate(item.date.value),
             y: item.user_usd_total_value || 0, 
           })),
-          borderColor: '#000000', // Different color for compounded data
-          backgroundColor: '#000000',
+          borderColor: '#5f5f5f', // Different color for compounded data
+          backgroundColor: '#5f5f5f',
           fill: false,
           pointRadius: 0, // Remove dots
           borderWidth: 3, // Thinner line
