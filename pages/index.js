@@ -25,8 +25,8 @@ export default function Home() {
         <h1>My Dashboards</h1>
         {/* <GhoSwapDash /> */}
         <AaveDash />
-        <AaveDash2 className="mt-10 mb-5"/>
-        <AaveDash3 className="mt-5"/>
+        <AaveDash2 className="mt-10 mb-10"/>
+        <AaveDash3 className="mt-20"/>
         <p className="text-sm italic">Sez @ Tokenlogic</p>
       </main>
     </div>
