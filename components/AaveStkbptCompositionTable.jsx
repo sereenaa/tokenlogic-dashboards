@@ -83,7 +83,7 @@ const Pagination = ({ rowsPerPage, totalRows, paginate, currentPage }) => {
           <select
             value={currentPage}
             onChange={(e) => paginate(Number(e.target.value))}
-            className="page-select cursor-pointer text-black hover:text-black"
+            className="page-select cursor-pointer text-table bg-background"
           >
             {pageNumbers.map(number => (
               <option key={number} value={number}>
@@ -95,7 +95,7 @@ const Pagination = ({ rowsPerPage, totalRows, paginate, currentPage }) => {
         <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
           <button
             onClick={() => paginate(currentPage + 1)}
-            className="page-link cursor-pointer text-black hover:text-black"
+            className="page-link cursor-pointer text-table bg-background"
             disabled={currentPage === totalPages}
           >
             &rsaquo;

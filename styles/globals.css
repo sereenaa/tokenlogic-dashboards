@@ -29,6 +29,43 @@
     --table-text: var(--foreground); /* Table text same as page text */
     --table-cell-bg: var(--button-bg); /* Cell background color same as button background color */
   }
+
+  .page-link {
+    font-size: 2rem; /* Increase the size of the arrows */
+    color: yellow; /* Set the color to yellow */
+    text-shadow: 0 0 5px yellow; /* Add a glowing effect */
+    margin: 2 2px;
+  }
+
+  .page-link:hover {
+    color: yellow; /* Ensure the color stays yellow on hover */
+    text-shadow: 0 0 10px yellow; /* Increase the glow on hover */
+  }
+
+  .page-item.disabled .page-link {
+    color: grey; /* Change color for disabled state */
+    text-shadow: none; /* Remove glow for disabled state */
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  
+  .page-link {
+    font-size: 2rem; /* Increase the size of the arrows */
+    color: black; /* Set the color to yellow */
+    text-shadow: 0 0 5px yellow; /* Add a glowing effect */
+    margin: 2 2px;
+  }
+
+  .page-link:hover {
+    color: black; /* Ensure the color stays yellow on hover */
+    text-shadow: 0 0 10px yellow; /* Increase the glow on hover */
+  }
+
+  .page-item.disabled .page-link {
+    color: grey; /* Change color for disabled state */
+    text-shadow: none; /* Remove glow for disabled state */
+  }
 }
 
 body {
@@ -102,21 +139,4 @@ table.bg-table th {
 
 table.bg-table td {
   text-align: right; /* Align body text to the right */
-}
-
-.page-link {
-  font-size: 2rem; /* Increase the size of the arrows */
-  color: yellow; /* Set the color to yellow */
-  text-shadow: 0 0 5px yellow; /* Add a glowing effect */
-  margin: 2 2px;
-}
-
-.page-link:hover {
-  color: yellow; /* Ensure the color stays yellow on hover */
-  text-shadow: 0 0 10px yellow; /* Increase the glow on hover */
-}
-
-.page-item.disabled .page-link {
-  color: grey; /* Change color for disabled state */
-  text-shadow: none; /* Remove glow for disabled state */
 }
