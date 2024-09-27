@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import AaveInvestmentAnalysisChart from './AaveStkbptInvestmentAnalysisChart';
 
-export default function AaveDash2() {
+export default function AaveDash2({ className}) {
   const [data, setData] = useState([]);
   const [days, setDays] = useState('30d');
   console.log(days)
@@ -100,7 +100,7 @@ export default function AaveDash2() {
   }, [showCompounding, frequency]); // Fetch compounding data when 'showCompounding' or 'frequency' changes
 
   return (
-    <main className="container mx-auto p-4 flex-grow h-screen flex flex-col bg-background text-foreground">
+    <main className={`container mx-auto p-4 flex-grow h-screen flex flex-col bg-background text-foreground ${className}`}>
       <h1 className="text-2xl font-bold mb-4">AAVE stkBPT $100k Investment Analysis</h1>
 
       <table className="table-auto w-full mb-4 text-table">

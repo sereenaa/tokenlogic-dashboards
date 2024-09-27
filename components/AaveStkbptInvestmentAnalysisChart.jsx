@@ -44,12 +44,9 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
   };
 
   const dateRange = calculateDateRange(data);
-  console.log('Date Range:', dateRange);
 
   const noCompoundThickness = Math.max(2, 15 - (dateRange / 10));
-  console.log('noCompoundThickness:', noCompoundThickness);
   const compoundThickness = Math.max(2, 15 - (dateRange / 10));
-  console.log('compoundThickness:', compoundThickness);
 
   const chartData = {
     labels: data.map(item => new Date(item.block_hour.value)),

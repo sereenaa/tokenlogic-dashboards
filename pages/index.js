@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import GhoSwapDash from '../components/GhoSwapDash';
 import AaveDash from "../components/AaveStkbptAprDash";
 import AaveDash2 from "../components/AaveStkbptInvestmentAnalysisDash"; 
+import AaveDash3 from "../components/AaveStkbptCompositionDash";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,7 +25,8 @@ export default function Home() {
         <h1>My Dashboards</h1>
         {/* <GhoSwapDash /> */}
         <AaveDash />
-        <AaveDash2 />
+        <AaveDash2 className="mt-10 mb-5"/>
+        <AaveDash3 className="mt-5"/>
         <p className="text-sm italic">Sez @ Tokenlogic</p>
       </main>
     </div>
