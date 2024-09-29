@@ -59,7 +59,7 @@ const Pagination = ({ rowsPerPage, totalRows, paginate, currentPage }) => {
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
-    <nav className="flex items-center justify-between">
+    <nav className="flex items-center justify-between mb-4">
       <ul className="pagination flex items-center">
         <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
           <button
