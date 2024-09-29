@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   const numericTopLps = parseInt(topLps, 10);
 
   let query;
-  if (type === 'all') {
+  if (type === 'all' || topLps === 'all') {
     query = `
       SELECT 
         address,
