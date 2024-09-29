@@ -16,7 +16,7 @@ export default function AaveDash3({ className }) {
   }, [topLps]);
 
   return (
-    <main className={`container mx-auto mb-10 p-4 flex-grow h-screen flex flex-col bg-background text-foreground ${className}`}>
+    <main className={`container mx-auto mb-20 p-4 flex-grow h-screen flex flex-col bg-background text-foreground ${className}`}>
       <h1 className="text-2xl font-bold mb-4">AAVE stkBPT Composition</h1>
       <div className="flex items-center">
         <label htmlFor="topLps" className="mr-2">Top LPs:</label>
