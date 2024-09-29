@@ -83,8 +83,8 @@ const AaveCompositionChart = ({ data }) => {
   }, [chartData]);
 
   return (
-    <div className="flex justify-center items-center">
-      <div style={{ width: '400px', height: '400px' }} className="m-10"> 
+    <div className="flex justify-center items-center mb-20">
+      <div style={{ width: '400px', height: '400px' }}> 
         <Pie ref={chartRef} data={chartData} options={options} />
       </div>
       <div id="legend-container" className="text-table" style={{ maxHeight: '400px', overflowY: 'scroll', marginLeft: '20px', fontFamily: 'inherit' }}></div>
