@@ -46,6 +46,29 @@
     color: grey; /* Change color for disabled state */
     text-shadow: none; /* Remove glow for disabled state */
   }
+
+  .scrollbar {
+    scrollbar-color: #2e2e2e #0a0a0a; /* thumb and track color */
+    scrollbar-width: thin;
+  }
+
+  .scrollbar::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background: #1e1e1e;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background-color: #2e2e2e;
+    border-radius: 10px;
+    border: 3px solid #1e1e1e;
+  }
+
+  .legend-container {
+    padding-right: 20px; /* Adjust this value to increase the gap */
+  }
 }
 
 @media (prefers-color-scheme: light) {
@@ -65,6 +88,29 @@
   .page-item.disabled .page-link {
     color: grey; /* Change color for disabled state */
     text-shadow: none; /* Remove glow for disabled state */
+  }
+
+  .scrollbar {
+    scrollbar-color: #f0f0f0 #ffffff; /* thumb and track color */
+    scrollbar-width: thin;
+  }
+
+  .scrollbar::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background: #1e1e1e;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background-color: #2e2e2e;
+    border-radius: 10px;
+    border: 3px solid #1e1e1e;
+  }
+
+  .legend-container {
+    padding-right: 20px; /* Adjust this value to increase the gap */
   }
 }
 
@@ -139,27 +185,4 @@ table.bg-table th {
 
 table.bg-table td {
   text-align: right; /* Align body text to the right */
-}
-
-.dark-scrollbar {
-  scrollbar-color: #2e2e2e #0a0a0a; /* thumb and track color */
-  scrollbar-width: thin;
-}
-
-.dark-scrollbar::-webkit-scrollbar {
-  width: 12px;
-}
-
-.dark-scrollbar::-webkit-scrollbar-track {
-  background: #1e1e1e;
-}
-
-.dark-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #2e2e2e;
-  border-radius: 10px;
-  border: 3px solid #1e1e1e;
-}
-
-.legend-container {
-  padding-right: 20px; /* Adjust this value to increase the gap */
 }

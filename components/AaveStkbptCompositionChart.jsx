@@ -79,7 +79,7 @@ const AaveCompositionChart = ({ data }) => {
     if (chart) {
       const legendContainer = document.getElementById('legend-container');
       legendContainer.innerHTML = `<ul>${generateCustomLegend(chart)}</ul>`;
-      legendContainer.classList.add('dark-scrollbar', 'legend-container'); // Add dark-scrollbar class
+      legendContainer.classList.add('scrollbar', 'legend-container');
     }
   }, [chartData]);
 
@@ -88,7 +88,7 @@ const AaveCompositionChart = ({ data }) => {
       <div style={{ width: '400px', height: '400px' }}> 
         <Pie ref={chartRef} data={chartData} options={options} />
       </div>
-      <div id="legend-container" className="text-table dark-scrollbar" style={{ maxHeight: '400px', overflowY: 'scroll', marginLeft: '20px', fontFamily: 'inherit' }}></div>
+      <div id="legend-container" className="text-table scrollbar" style={{ maxHeight: '400px', overflowY: 'scroll', marginLeft: '20px', fontFamily: 'inherit' }}></div>
     </div>
   );
 };
