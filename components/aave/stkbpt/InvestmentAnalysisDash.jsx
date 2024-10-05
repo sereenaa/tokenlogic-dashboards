@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import AaveInvestmentAnalysisChart from './AaveStkbptInvestmentAnalysisChart';
+import AaveInvestmentAnalysisChart from './InvestmentAnalysisChart';
 
 export default function AaveDash2({ className}) {
   const [data, setData] = useState([]);
@@ -35,13 +35,13 @@ export default function AaveDash2({ className}) {
   const [currentTotalNonLpValue, setCurrentTotalNonLpValue] = useState(0);
 
   async function fetchData() {
-    const response = await fetch(`/api/bigquery/aaveStkbptInvestmentAnalysisQuery?days=${days}&type=data`);
+    const response = await fetch(`/api/bigquery/aave/stkbpt/investmentAnalysis?days=${days}&type=data`);
     const result = await response.json();
     setData(result);
   };
 
   async function fetchCompoundingData() {
-    const response = await fetch(`/api/bigquery/aaveStkbptInvestmentAnalysisQuery?days=${days}&type=compounding&frequency=${frequency}`);
+    const response = await fetch(`/api/bigquery/aave/stkbpt/investmentAnalysis?days=${days}&type=compounding&frequency=${frequency}`);
     const result = await response.json();
     setCompoundingData(result);
   };
@@ -56,7 +56,7 @@ export default function AaveDash2({ className}) {
 
   useEffect(() => {
     async function fetchValues() {
-      const response = await fetch(`/api/bigquery/aaveStkbptInvestmentAnalysisQuery?type=values`);
+      const response = await fetch(`/api/bigquery/aave/stkbpt/investmentAnalysis?type=values`);
       const result = await response.json();
 
       const initialData = result[0];
@@ -214,7 +214,7 @@ export default function AaveDash2({ className}) {
         )}
       </div>
 
-      <div className="flex-grow">
+      <div style={{ width: 'auto', height: '80vh' }}>
         <AaveInvestmentAnalysisChart 
           data={data} 
           compoundingData={showCompounding ? compoundingData : null}  

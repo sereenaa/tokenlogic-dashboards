@@ -81,7 +81,7 @@ const AaveStkbptHistogramChart = ({ data }) => {
   };
 
   return (
-    <div style={{ width: '80vw', height: '80vh' }}>
+    <div style={{ width: 'auto', height: '80vh' }}>
       <Bar data={histogramData} options={histogramOptions} />
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import AaveAPRChart from './AaveStkbptAprChart';
+import AaveAPRChart from './AprChart';
 
 export default function AaveDash() {
   const [data, setData] = useState([]);
@@ -10,7 +10,7 @@ export default function AaveDash() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`/api/bigquery/aaveStkbptAprQuery?days=${days}`);
+      const response = await fetch(`/api/bigquery/aave/stkbpt/apr?days=${days}`);
       const result = await response.json();
       setData(result);
     }
@@ -19,17 +19,17 @@ export default function AaveDash() {
 
   useEffect(() => {
     async function fetchSwapFeeApr() {
-      const response = await fetch(`/api/bigquery/aaveStkbptAprQuery?days=${days}&type=swapFeeApr`);
+      const response = await fetch(`/api/bigquery/aave/stkbpt/apr?days=${days}&type=swapFeeApr`);
       const result = await response.json();
       setSwapFeeApr(result[0].average);
     }
     async function fetchEmissionsApr() {
-      const response = await fetch(`/api/bigquery/aaveStkbptAprQuery?days=${days}&type=emissionsApr`);
+      const response = await fetch(`/api/bigquery/aave/stkbpt/apr?days=${days}&type=emissionsApr`);
       const result = await response.json();
       setEmissionsApr(result[0].average);
     }
     async function fetchTotalLpApr() {
-      const response = await fetch(`/api/bigquery/aaveStkbptAprQuery?days=${days}&type=totalLpApr`);
+      const response = await fetch(`/api/bigquery/aave/stkbpt/apr?days=${days}&type=totalLpApr`);
       const result = await response.json();
       setTotalLpApr(result[0].average);
     }
@@ -40,7 +40,7 @@ export default function AaveDash() {
 
 
   return (
-    <main className="container mx-auto p-4 h-screen flex flex-col bg-background text-foreground">
+    <main className="container mx-auto p-4 bg-background text-foreground">
       <h1 className="text-2xl font-bold mb-4">AAVE stkBPT APR</h1>
       <div className="flex items-center mb-4">
         <label htmlFor="days" className="mr-2"></label>
@@ -68,7 +68,7 @@ export default function AaveDash() {
           <p>{totalLpApr !== null ? `${totalLpApr}%` : 'Loading...'}</p>
         </div>
       </div>
-      <div className="flex-grow">
+      <div style={{ width: 'auto', height: '80vh' }}>
         <AaveAPRChart data={data} />
       </div>
     </main>

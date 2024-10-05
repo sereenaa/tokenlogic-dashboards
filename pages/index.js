@@ -1,9 +1,10 @@
 import Image from "next/image";
 import localFont from "next/font/local";
-import GhoSwapDash from '../components/GhoSwapDash';
-import AaveDash from "../components/AaveStkbptAprDash";
-import AaveDash2 from "../components/AaveStkbptInvestmentAnalysisDash"; 
-import AaveDash3 from "../components/AaveStkbptCompositionDash";
+import GhoSwapDash from '../components/gho/GhoSwapDash';
+import AaveDash from "../components/aave/stkbpt/AprDash";
+import AaveDash2 from "../components/aave/stkbpt/InvestmentAnalysisDash"; 
+import AaveDash3 from "../components/aave/stkbpt/CompositionDash";
+import AaveDash4 from "../components/aave/stkbpt/ClaimsDash";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,8 +26,9 @@ export default function Home() {
         <p>My Dashboards ~ Sez @ TokenLogic</p>
         {/* <GhoSwapDash /> */}
         <AaveDash />
-        <AaveDash2 className="mt-10 mb-10"/>
+        <AaveDash2 className="mt-20 mb-10"/>
         <AaveDash3 className="mt-20"/>
+        <AaveDash4 className="mt-10"/>
       </main>
     </div>
   );

@@ -1,4 +1,4 @@
-import bigquery from '../../../utils/bigquery-client';
+import bigquery from '../../../../../utils/bigquery-client';
 
 export default async function handler(req, res) {
   // Add CORS headers

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import AaveStkbptHistogramChart from './AaveStkbptHistogramChart';
-import AaveCompositionChart from './AaveStkbptCompositionChart';
-import AaveCompositionTable from './AaveStkbptCompositionTable';
+import AaveStkbptHistogramChart from './HistogramChart';
+import AaveCompositionChart from './CompositionChart';
+import AaveCompositionTable from './CompositionTable';
 
 export default function AaveDash3({ className }) {
   const [data, setData] = useState([]);
@@ -10,13 +10,13 @@ export default function AaveDash3({ className }) {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`/api/bigquery/aaveStkbptCompositionQuery?topLps=${topLps}`);
+      const response = await fetch(`/api/bigquery/aave/stkbpt/composition?topLps=${topLps}`);
       const result = await response.json();
       setData(result);
     }
     fetchData();
     async function fetchDataAll() {
-      const response = await fetch(`/api/bigquery/aaveStkbptCompositionQuery?topLps=all`);
+      const response = await fetch(`/api/bigquery/aave/stkbpt/composition?topLps=all`);
       const result = await response.json();
       setDataAll(result);
     }
@@ -24,7 +24,7 @@ export default function AaveDash3({ className }) {
   }, [topLps]);
 
   return (
-    <main className={`container mx-auto mb-20 p-4 flex-grow h-screen flex flex-col bg-background text-foreground ${className}`}>
+    <main className={`container mx-auto p-4 bg-background text-foreground ${className}`}>
       <h1 className="text-2xl font-bold mb-4">AAVE stkBPT Composition</h1>
       <div className="flex flex-col items-left">
         <AaveStkbptHistogramChart data={dataAll} />

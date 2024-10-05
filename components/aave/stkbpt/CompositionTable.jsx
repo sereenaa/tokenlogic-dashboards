@@ -7,7 +7,7 @@ const AaveCompositionTable = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`/api/bigquery/aaveStkbptCompositionQuery?type=all`);
+      const response = await fetch(`/api/bigquery/aave/stkbpt/composition?type=all`);
       const result = await response.json();
       setData(result);
     }
