@@ -13,11 +13,9 @@ export default async function handler(req, res) {
   }
 
   const { days, type, frequency } = req.query; // Get the number of days from the query parameters
-  console.log(days, type, frequency)
 
   let query;
   const numericDays = parseInt(days, 10);
-  console.log(numericDays)
   let limitQuery;
   if (days === 'all') {
     limitQuery = '';
@@ -130,13 +128,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    console.log(query)
-
     const [rows] = await bigquery.query({ query });
-
-    if (type === 'compounding') {
-      console.log(rows)
-    }
     res.status(200).json(rows);
   } catch (error) {
     console.error('Error fetching data from BigQuery:', error);

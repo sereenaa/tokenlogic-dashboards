@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const query = `select * from datamart_aave.aave_stkbpt_avg_duration_between_claims`
+  const query = `select * from tokenlogic-data-dev.datamart_aave.aave_stkbpt_daily_stakes`;
 
   try {
     const [rows] = await bigquery.query({ query });

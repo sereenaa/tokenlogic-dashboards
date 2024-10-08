@@ -13,22 +13,18 @@ const AaveCompositionChart = ({ data }) => {
   const chartRef = useRef(null);
 
   const topAddresses = data.map(item => item.address);
-  console.log('Top Addresses:', topAddresses);
 
   const topPercentages = data.map(item => {
     const perc = parseFloat(item.perc);
     return isNaN(perc) ? 0 : perc;
   });
-  console.log('Top Percentages:', topPercentages);
 
   const totalPercentage = topPercentages.reduce((acc, perc) => acc + perc, 0);
-  console.log('Total Percentage:', totalPercentage);
 
   let otherPercentage = 100 - totalPercentage;
   if (otherPercentage <= 0) {
     otherPercentage = 0;
   }
-  console.log('Other Percentage:', otherPercentage);
 
   const chartData = {
     labels: otherPercentage > 0 ? [...topAddresses, 'Other'] : topAddresses,

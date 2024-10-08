@@ -4,10 +4,8 @@ import AaveInvestmentAnalysisChart from './InvestmentAnalysisChart';
 export default function AaveDash2({ className}) {
   const [data, setData] = useState([]);
   const [days, setDays] = useState('30d');
-  console.log(days)
   const [showCompounding, setShowCompounding] = useState(false);
   const [frequency, setFrequency] = useState('1d');
-  console.log(frequency)
   const [compoundingData, setCompoundingData] = useState([]);
 
   const [userLpTokens, setUserLpTokens] = useState(0);
