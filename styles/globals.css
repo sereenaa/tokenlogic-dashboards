@@ -14,6 +14,8 @@
   --table-bg: #fafafa; /* Lighter table background color */
   --table-text: var(--foreground); /* Table text same as page text */
   --table-cell-bg: var(--button-bg); /* Cell background color same as button background color */
+  --link-bg: #d7d7d7;
+  --hover-bg: #ededed;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -28,6 +30,8 @@
     --table-bg: #1f1f1f; /* Slightly darker grey table background color */
     --table-text: var(--foreground); /* Table text same as page text */
     --table-cell-bg: var(--button-bg); /* Cell background color same as button background color */
+    --link-bg: #0c0c0c;
+    --hover-bg: #3c3c3c;
   }
 
   .page-link {
@@ -121,6 +125,12 @@ body {
 }
 
 @layer utilities {
+  .hover-bg {
+    background-color: var(--hover-bg);
+  }
+  .link-bg {
+    background-color: var(--link-bg);
+  }
   .text-balance {
     text-wrap: balance;
   }

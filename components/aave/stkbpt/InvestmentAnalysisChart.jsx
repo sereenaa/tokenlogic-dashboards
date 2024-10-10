@@ -285,7 +285,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
   };
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <button
         onClick={() => setShowBreakdown(!showBreakdown)}
         className="mx-2 mb-2 px-4 py-2 rounded transition duration-300 button-outline"

@@ -28,7 +28,6 @@ export default async function handler(req, res) {
 
   try {
     const [rows] = await bigquery.query({ query });
-    console.log(rows)
     res.status(200).json(rows);
   } catch (error) {
     console.error('Error fetching data from BigQuery:', error);
