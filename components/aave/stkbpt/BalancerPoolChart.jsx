@@ -41,22 +41,28 @@ const BalancerPoolBarChart = ({ data }) => {
       tooltip: {
         callbacks: {
           label: function(context) {
-            const index = context.dataIndex;
             const datasetLabel = context.dataset.label;
-            const value = context.raw;
+            const value = context.raw.toFixed(2);
+            return `${datasetLabel}: $${value}`;
+          },
+          afterLabel: function(context) {
+            const index = context.dataIndex;
             const item = data[index];
-
-            let breakdown = '';
-            if (datasetLabel.includes('AAVE')) {
-              breakdown = `AAVE Only Deposit: $${item.aave_only_deposit_value || 0}\nAAVE Only Withdrawal: $${item.aave_only_withdrawal_value || 0}`;
-            } else if (datasetLabel.includes('wstETH')) {
-              breakdown = `wstETH Only Deposit: $${item.wstETH_only_deposit_value || 0}\nwstETH Only Withdrawal: $${item.wstETH_only_withdrawal_value || 0}`;
+            let breakdown = [];
+      
+            if (context.dataset.label.includes('AAVE')) {
+              breakdown = [
+                `AAVE Only Deposit: $${(item.aave_only_deposit_value || 0).toFixed(2)}`,
+                `AAVE Only Withdrawal: $${(item.aave_only_withdrawal_value || 0).toFixed(2)}`
+              ];
+            } else if (context.dataset.label.includes('wstETH')) {
+              breakdown = [
+                `wstETH Only Deposit: $${(item.wstETH_only_deposit_value || 0).toFixed(2)}`,
+                `wstETH Only Withdrawal: $${(item.wstETH_only_withdrawal_value || 0).toFixed(2)}`
+              ];
             }
-
-            return [
-              `${datasetLabel}: $${value}`,
-              breakdown
-            ];
+      
+            return breakdown;
           }
         }
       }
