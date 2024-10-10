@@ -163,9 +163,9 @@ export default function AaveDash2({ className}) {
           onChange={(e) => setDays(e.target.value)}
           className="p-2 border rounded bg-background text-foreground"
         >
-          <option value="30d">30d</option>
-          <option value="90d">90d</option>
-          <option value="180d">180d</option>
+          <option value="30d">30 days</option>
+          <option value="90d">90 days</option>
+          <option value="180d">180 days</option>
           <option value="all">All Time</option>
         </select>
         <button
@@ -202,11 +202,11 @@ export default function AaveDash2({ className}) {
               onChange={(e) => setFrequency(e.target.value)}
               className="p-2 border rounded bg-background text-foreground"
             >
-              <option value="1d">1d</option>
-              <option value="7d">7d</option>
-              <option value="14d">14d</option>
-              <option value="30d">30d</option>
-              <option value="90d">90d</option>
+              <option value="1d">1 day</option>
+              <option value="7d">7 days</option>
+              <option value="14d">14 days</option>
+              <option value="30d">30 days</option>
+              <option value="90d">90 days</option>
             </select>
           </div>
         )}

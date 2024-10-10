@@ -50,9 +50,9 @@ export default function AaveDash() {
           onChange={(e) => setDays(e.target.value)}
           className="p-2 border rounded bg-background text-foreground"
         >
-          <option value="30d">30d</option>
-          <option value="90d">90d</option>
-          <option value="180d">180d</option>
+          <option value="30d">30 days</option>
+          <option value="90d">90 days</option>
+          <option value="180d">180 days</option>
           <option value="all">All Time</option>
         </select>
         <div className="ml-4 p-4 rounded-xl bg-light-background dark:bg-dark-background text-sm flex-grow">
