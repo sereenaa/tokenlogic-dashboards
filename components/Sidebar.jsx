@@ -32,6 +32,11 @@ const TailwindSidebar = ({ activeSection }) => {
               </a>
             </li>
             <li>
+              <a href="#AaveDash7" className={linkClasses('AaveDash7')}>
+              Balancer 20wstETH-80AAVE Pool TVL and APR
+              </a>
+            </li>
+            <li>
               <a href="#AaveDash2" className={linkClasses('AaveDash2')}>
                 AAVE stkBPT $100k Investment Analysis
               </a>

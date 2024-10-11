@@ -17,7 +17,7 @@ export default function AaveDash7() {
 
   return (
     <main className="container mx-auto p-4 bg-background text-foreground">
-      <h1 className="text-2xl font-bold mb-4">AAVE stkBPT APR</h1>
+      <h1 className="text-2xl font-bold mb-4">Balancer 20wstETH-80AAVE Pool TVL and APR</h1>
       <div className="flex items-center mb-4">
         <label htmlFor="days" className="mr-2"></label>
         <select

@@ -66,7 +66,7 @@ export default function Home() {
         <section id="AaveDash" className="w-full">
           <AaveDash />
         </section>
-        <section id="AaveDash" className="w-full">
+        <section id="AaveDash7" className="w-full">
           <AaveDash7 />
         </section>
         <section id="AaveDash2" className="w-full">
