@@ -5,6 +5,7 @@ import TailwindSidebar from '../components/Sidebar';
 
 import GhoSwapDash from '../components/gho/GhoSwapDash';
 import AaveDash from "../components/aave/stkbpt/AprDash";
+import AaveDash7 from "../components/aave/stkbpt/BalancerPoolTvlAprDash";
 import AaveDash2 from "../components/aave/stkbpt/InvestmentAnalysisDash"; 
 import AaveDash3 from "../components/aave/stkbpt/CompositionDash";
 import AaveDash4 from "../components/aave/stkbpt/ClaimsDash";
@@ -64,6 +65,9 @@ export default function Home() {
         <AaveDash6 className="mt-10"/> */}
         <section id="AaveDash" className="w-full">
           <AaveDash />
+        </section>
+        <section id="AaveDash" className="w-full">
+          <AaveDash7 />
         </section>
         <section id="AaveDash2" className="w-full">
           <AaveDash2 className="mt-20 mb-10"/>
