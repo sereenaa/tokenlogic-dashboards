@@ -70,7 +70,7 @@ export default function Home() {
           <AaveDash7 />
         </section>
         <section id="AaveDash2" className="w-full">
-          <AaveDash2 className="mt-20 mb-10"/>
+          <AaveDash2 className="mt-2 mb-10"/>
         </section>
         <section id="AaveDash3" className="w-full">
           <AaveDash3 className="mt-20"/>

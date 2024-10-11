@@ -196,3 +196,7 @@ table.bg-table th {
 table.bg-table td {
   text-align: right; /* Align body text to the right */
 }
+
+pre, code {
+  font-size: 0.825rem; /* Adjust the size as needed, 0.875rem is approximately 14px */
+}

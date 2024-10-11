@@ -4,6 +4,7 @@ import BalancerPoolTVLAPRChart from './BalancerPoolTvlAprChart';
 export default function AaveDash7() {
   const [data, setData] = useState([]);
   const [days, setDays] = useState('7d'); // New state for selected days
+  const [showQuery, setShowQuery] = useState(false); // New state for toggling SQL query
 
   useEffect(() => {
     async function fetchData() {
@@ -35,6 +36,27 @@ export default function AaveDash7() {
       <div style={{ width: 'auto', height: '80vh' }}>
         <BalancerPoolTVLAPRChart data={data} />
       </div>
+      <div className="flex items-center mt-4">
+          <span className="mr-2 cursor-pointer" onClick={() => setShowQuery(!showQuery)}>
+            {showQuery ? 'v' : '>'}
+          </span>
+          <em onClick={() => setShowQuery(!showQuery)} className="cursor-pointer">
+            Table: tokenlogic-data-dev.datamart_aave.aave_balancer_pool_20wsteth_80aave_tvl_apr
+          </em>
+        </div>
+        {showQuery && (
+          <div className="mt-4 p-4 rounded bg-light-background">
+            <pre>
+              <code>
+                {days === 'all'
+                  ? `SELECT * FROM tokenlogic-data-dev.datamart_aave.aave_balancer_pool_20wsteth_80aave_tvl_apr ORDER BY date;`
+                  : `SELECT * FROM (
+  SELECT * FROM tokenlogic-data-dev.datamart_aave.aave_balancer_pool_20wsteth_80aave_tvl_apr ORDER BY date DESC LIMIT ${parseInt(days, 10)}
+) ORDER BY date;`}
+              </code>
+            </pre>
+          </div>
+        )}
     </main>
   );
 }

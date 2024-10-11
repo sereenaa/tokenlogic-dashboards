@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import AaveInvestmentAnalysisChart from './InvestmentAnalysisChart';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function AaveDash2({ className}) {
   const [data, setData] = useState([]);
@@ -7,6 +9,7 @@ export default function AaveDash2({ className}) {
   const [showCompounding, setShowCompounding] = useState(false);
   const [frequency, setFrequency] = useState('1d');
   const [compoundingData, setCompoundingData] = useState([]);
+  const [showQuery, setShowQuery] = useState(false); // New state for toggling SQL query
 
   const [userLpTokens, setUserLpTokens] = useState(0);
 
@@ -98,7 +101,7 @@ export default function AaveDash2({ className}) {
   }, [showCompounding, frequency]); // Fetch compounding data when 'showCompounding' or 'frequency' changes
 
   return (
-    <main className={`container mx-auto p-4 flex-grow h-screen flex flex-col bg-background text-foreground ${className}`}>
+    <main className={`container mx-auto p-4 flex-grow flex flex-col bg-background text-foreground ${className}`}>
       <h1 className="text-2xl font-bold mb-4">AAVE stkBPT $100k Investment Analysis</h1>
 
       <table className="table-auto w-full mb-4 text-table">
@@ -212,12 +215,201 @@ export default function AaveDash2({ className}) {
         )}
       </div>
 
-      <div style={{ width: 'auto', height: '80vh' }}>
+      <div style={{ width: 'auto', height: 'auto' }}>
         <AaveInvestmentAnalysisChart 
           data={data} 
           compoundingData={showCompounding ? compoundingData : null}  
         />
       </div>
+      
+      <div className="flex items-center mt-4">
+        <FontAwesomeIcon
+          icon={showQuery ? faChevronDown : faChevronRight}
+          className="mr-2 cursor-pointer"
+          onClick={() => setShowQuery(!showQuery)}
+        />
+        <em onClick={() => setShowQuery(!showQuery)} className="cursor-pointer">
+          Table: tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis
+        </em>
+      </div>
+
+
+      {showQuery && (
+        <div className="mt-4 p-4 rounded bg-light-background">
+          <h3 className="font-semibold">Data Table Query</h3>
+          <pre>
+            <code>
+              {`select 
+  lp_user_aave_token_balance
+  , aave_usd_price
+  , user_lp_tokens
+  , lp_user_aave_token_balance * aave_usd_price as lp_user_aave_token_value
+  , lp_user_wsteth_token_balance
+  , wsteth_usd_price
+  , lp_user_wsteth_token_balance * wsteth_usd_price as lp_user_wsteth_token_value
+  , non_lp_user_aave_token_balance
+  , non_lp_user_wsteth_token_balance
+from tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis
+where block_hour = (select max(block_hour) from tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis)
+  or block_hour = (select min(block_hour) from tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis)
+order by block_hour;`
+              }
+            </code>
+          </pre>
+          <br />
+          <h3 className="font-semibold">Full Data Query</h3>
+          <pre>
+            <code>
+              {days === 'all' 
+                ? `SELECT 
+  block_hour
+  , lp_user_total_value
+  , lp_user_aave_value
+  , lp_user_wsteth_value
+  , lp_user_aave_token_balance
+  , lp_user_wsteth_token_balance
+  , non_lp_user_total_value
+  , non_lp_user_aave_value
+  , non_lp_user_wsteth_value
+  , non_lp_user_aave_token_balance
+  , non_lp_user_wsteth_token_balance
+  , aave_usd_price
+  , wsteth_usd_price
+  , manual_il
+FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis;` 
+                : `SELECT * FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis order by block_hour desc limit ${parseInt(days, 10)};`}
+            </code>
+          </pre>
+          <br />
+          <h3 className="font-semibold">Compounding 1d Frequency Query</h3>
+          <pre>
+            <code>
+              {days === 'all' 
+                ? `select 
+  date
+  , user_usd_total_value_1_day as user_usd_total_value
+  , aave_usd_value_1_day as aave_usd_value
+  , wsteth_usd_value_1_day as wsteth_usd_value
+  , aave_token_balance_1_day as aave_token_balance
+  , wsteth_token_balance_1_day as wsteth_token_balance
+from tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis
+order by date desc;`
+                : `select 
+  date
+  , user_usd_total_value_1_day as user_usd_total_value
+  , aave_usd_value_1_day as aave_usd_value
+  , wsteth_usd_value_1_day as wsteth_usd_value
+  , aave_token_balance_1_day as aave_token_balance
+  , wsteth_token_balance_1_day as wsteth_token_balance
+from tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis
+order by date desc limit ${parseInt(days, 10)};`}
+            </code>
+          </pre>
+          <br />
+          <h3 className="font-semibold">Compounding 7d Frequency Query</h3>
+          <pre>
+            <code>
+            {days === 'all' 
+            ? `select 
+  date
+  , user_usd_total_value_7_days as user_usd_total_value
+  , aave_usd_value_7_days as aave_usd_value
+  , wsteth_usd_value_7_days as wsteth_usd_value
+  , aave_token_balance_7_days as aave_token_balance
+  , wsteth_token_balance_7_days as wsteth_token_balance
+from tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis
+order by date desc;`
+            : `select 
+  date
+  , user_usd_total_value_7_days as user_usd_total_value
+  , aave_usd_value_7_days as aave_usd_value
+  , wsteth_usd_value_7_days as wsteth_usd_value
+  , aave_token_balance_7_days as aave_token_balance
+  , wsteth_token_balance_7_days as wsteth_token_balance
+from tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis
+order by date desc limit ${parseInt(days, 10)};`}
+            </code>
+          </pre>
+          <br />
+          <h3 className="font-semibold">Compounding 14d Frequency Query</h3>
+          <pre>
+            <code>
+            {days === 'all' 
+              ? `select 
+  date
+  , user_usd_total_value_14_days as user_usd_total_value
+  , aave_usd_value_14_days as aave_usd_value
+  , wsteth_usd_value_14_days as wsteth_usd_value
+  , aave_token_balance_14_days as aave_token_balance
+  , wsteth_token_balance_14_days as wsteth_token_balance
+from tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis
+order by date desc;`
+              : `select 
+  date
+  , user_usd_total_value_14_days as user_usd_total_value
+  , aave_usd_value_14_days as aave_usd_value
+  , wsteth_usd_value_14_days as wsteth_usd_value
+  , aave_token_balance_14_days as aave_token_balance
+  , wsteth_token_balance_14_days as wsteth_token_balance
+from tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis
+order by date desc limit ${parseInt(days, 10)};`}
+            </code>
+          </pre>
+          <br />
+          <h3 className="font-semibold">Compounding 30d Frequency Query</h3>
+          <pre>
+            <code>
+            {days === 'all' 
+              ? `select 
+  date
+  , user_usd_total_value_30_days as user_usd_total_value
+  , aave_usd_value_30_days as aave_usd_value
+  , wsteth_usd_value_30_days as wsteth_usd_value
+  , aave_token_balance_30_days as aave_token_balance
+  , wsteth_token_balance_30_days as wsteth_token_balance
+from tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis
+order by date desc;`
+              : `select 
+  date
+  , user_usd_total_value_30_days as user_usd_total_value
+  , aave_usd_value_30_days as aave_usd_value
+  , wsteth_usd_value_30_days as wsteth_usd_value
+  , aave_token_balance_30_days as aave_token_balance
+  , wsteth_token_balance_30_days as wsteth_token_balance
+from tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis
+order by date desc limit ${parseInt(days, 10)};`}
+            </code>
+          </pre>
+          <br />
+          <h3 className="font-semibold">Compounding 90d Frequency Query</h3>
+          <pre>
+            <code>
+            {days === 'all' 
+              ? `select 
+  date
+  , user_usd_total_value_90_days as user_usd_total_value
+  , aave_usd_value_90_days as aave_usd_value
+  , wsteth_usd_value_90_days as wsteth_usd_value
+  , aave_token_balance_90_days as aave_token_balance
+  , wsteth_token_balance_90_days as wsteth_token_balance
+from tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis
+order by date desc;`
+              : `select 
+  date
+  , user_usd_total_value_90_days as user_usd_total_value
+  , aave_usd_value_90_days as aave_usd_value
+  , wsteth_usd_value_90_days as wsteth_usd_value
+  , aave_token_balance_90_days as aave_token_balance
+  , wsteth_token_balance_90_days as wsteth_token_balance
+from tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis
+order by date desc limit ${parseInt(days, 10)};`}
+            </code>
+          </pre>
+        </div>
+      )}
     </main>
+
+
+
   );
 }

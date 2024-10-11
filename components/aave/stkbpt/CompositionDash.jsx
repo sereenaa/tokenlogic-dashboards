@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react';
 import AaveStkbptHistogramChart from './HistogramChart';
 import AaveCompositionChart from './CompositionChart';
 import AaveCompositionTable from './CompositionTable';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function AaveDash3({ className }) {
   const [data, setData] = useState([]);
   const [dataAll, setDataAll] = useState([]);
   const [topLps, setTopLps] = useState(5);
+  const [showQuery, setShowQuery] = useState(false); // New state for toggling SQL query
 
   useEffect(() => {
     async function fetchData() {
@@ -44,6 +47,46 @@ export default function AaveDash3({ className }) {
       </div>
       <AaveCompositionChart data={data} />
       <AaveCompositionTable />
+      <div className="flex items-center mt-4">
+        <FontAwesomeIcon
+          icon={showQuery ? faChevronDown : faChevronRight}
+          className="mr-2 cursor-pointer"
+          onClick={() => setShowQuery(!showQuery)}
+        />
+        <em onClick={() => setShowQuery(!showQuery)} className="cursor-pointer">
+          Table: tokenlogic-data-dev.datamart_aave.aave_stkbpt_composition
+        </em>
+      </div>
+      {showQuery && (
+        <div className="mt-4 p-4 rounded bg-light-background">
+          <h3 className="font-semibold">Full Data Query</h3>
+          <pre>
+            <code>
+              {`SELECT 
+  address,
+  num_stk_lp_tokens,
+  total_num_stk_lp_tokens,
+  perc
+FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_composition
+ORDER BY perc DESC;`}
+            </code>
+          </pre>
+          <br />
+          <h3 className="font-semibold">Top N LPs</h3>
+          <pre>
+            <code>
+              {`SELECT 
+  address,
+  num_stk_lp_tokens,
+  total_num_stk_lp_tokens,
+  perc
+FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_composition
+ORDER BY perc DESC
+LIMIT ${topLps};`}
+            </code>
+          </pre>
+        </div>
+      )}
     </main>
   );
 }

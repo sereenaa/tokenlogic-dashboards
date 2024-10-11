@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import AaveAPRChart from './AprChart';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function AaveDash() {
   const [data, setData] = useState([]);
@@ -7,6 +9,7 @@ export default function AaveDash() {
   const [swapFeeApr, setSwapFeeApr] = useState(null);
   const [emissionsApr, setEmissionsApr] = useState(null);
   const [totalLpApr, setTotalLpApr] = useState(null);
+  const [showQuery, setShowQuery] = useState(false); // New state for toggling SQL query
 
   useEffect(() => {
     async function fetchData() {
@@ -70,6 +73,64 @@ export default function AaveDash() {
       </div>
       <div style={{ width: 'auto', height: '80vh' }}>
         <AaveAPRChart data={data} />
+      </div>
+      <div>
+        <div className="flex items-center my-6">
+          <FontAwesomeIcon
+            icon={showQuery ? faChevronDown : faChevronRight}
+            className="mr-2 cursor-pointer"
+            onClick={() => setShowQuery(!showQuery)}
+          />
+          <em onClick={() => setShowQuery(!showQuery)} className="cursor-pointer">
+            Table: tokenlogic-data-dev.datamart_aave.aave_stkbpt_apr
+          </em>
+        </div>
+        {showQuery && (
+        <div className="mt-4 p-4 rounded bg-light-background">
+          <h3 className="font-semibold">Full Data Query</h3>
+          <pre>
+            <code>
+              {days === 'all' 
+                ?  `SELECT * FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_apr;`
+                : `SELECT * FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_apr ORDER BY date DESC limit ${parseInt(days, 10)};`
+              }
+            </code>
+          </pre>
+          <br />
+          <h3 className="font-semibold">Average Swap Fee APR Query</h3>
+          <pre>
+            <code>
+              {days === 'all' 
+                ? `SELECT ROUND(AVG(apr_from_swap_fees), 2) AS average FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_apr;` 
+                : `SELECT ROUND(AVG(apr_from_swap_fees), 2) AS average 
+FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_apr 
+WHERE date >= DATE_SUB(CURRENT_DATE(), INTERVAL ${parseInt(days, 10)} DAY);`}
+            </code>
+          </pre>
+          <br />
+          <h3 className="font-semibold">Average Emissions APR Query</h3>
+          <pre>
+            <code>
+              {days === 'all'
+                ? `SELECT ROUND(AVG(apr_from_emissions), 2) AS average FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_apr;`
+                : `SELECT ROUND(AVG(apr_from_emissions), 2) AS average 
+FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_apr 
+WHERE date >= DATE_SUB(CURRENT_DATE(), INTERVAL ${parseInt(days, 10)} DAY);`}
+            </code>
+          </pre>
+          <br />
+          <h3 className="font-semibold">Average Total LP APR Query</h3>
+          <pre>
+            <code>
+              {days === 'all'
+                ? `SELECT ROUND(AVG(apr_from_swap_fees + apr_from_emissions), 2) AS average FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_apr;`
+                : `SELECT ROUND(AVG(apr_from_swap_fees + apr_from_emissions), 2) AS average 
+FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_apr 
+WHERE date >= DATE_SUB(CURRENT_DATE(), INTERVAL ${parseInt(days, 10)} DAY);`}
+            </code>
+          </pre>
+        </div>
+      )}
       </div>
     </main>
   );

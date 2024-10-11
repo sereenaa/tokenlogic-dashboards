@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const AaveDash4 = ({ className }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showQuery, setShowQuery] = useState(false); // New state for toggling SQL query
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,6 +51,25 @@ const AaveDash4 = ({ className }) => {
           </tbody>
         </table>
       </div>
+      <div className="flex items-center mt-4">
+        <FontAwesomeIcon
+          icon={showQuery ? faChevronDown : faChevronRight}
+          className="mr-2 cursor-pointer"
+          onClick={() => setShowQuery(!showQuery)}
+        />
+        <em onClick={() => setShowQuery(!showQuery)} className="cursor-pointer">
+          Table: tokenlogic-data-dev.datamart_aave.aave_stkbpt_avg_duration_between_claims
+        </em>
+      </div>
+      {showQuery && (
+        <div className="mt-4 p-4 rounded bg-light-background">
+          <pre>
+            <code>
+              {`select * from datamart_aave.aave_stkbpt_avg_duration_between_claims;`}
+            </code>
+          </pre>
+        </div>
+      )}
     </main>
   );
 };

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import BalancerPoolBarChart from './BalancerPoolChart';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const AaveDash6 = ({ className }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [days, setDays] = useState('7d'); // New state for selected days
+  const [showQuery, setShowQuery] = useState(false); // New state for toggling SQL query
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,6 +50,31 @@ const AaveDash6 = ({ className }) => {
         </select>
       </div>
       <BalancerPoolBarChart data={data} />
+      <div>
+        <div className="flex items-center mt-4">
+        <FontAwesomeIcon
+          icon={showQuery ? faChevronDown : faChevronRight}
+          className="mr-2 cursor-pointer"
+          onClick={() => setShowQuery(!showQuery)}
+        />
+          <em onClick={() => setShowQuery(!showQuery)} className="cursor-pointer">
+            Table: tokenlogic-data-dev.datamart_aave.aave_stkbpt_balancer_pool_deposits_withdrawals
+          </em>
+        </div>
+        {showQuery && (
+          <div className="mt-4 p-4 rounded bg-light-background">
+            <pre>
+              <code>
+                {days === 'all'
+                  ? `SELECT * FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_balancer_pool_deposits_withdrawals ORDER BY day;`
+                  : `SELECT * FROM (
+  SELECT * FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_balancer_pool_deposits_withdrawals ORDER BY day DESC LIMIT ${parseInt(days, 10)}
+) ORDER BY day;`}
+              </code>
+            </pre>
+          </div>
+        )}
+      </div>
     </main>
   );
 };
