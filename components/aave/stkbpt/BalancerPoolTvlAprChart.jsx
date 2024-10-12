@@ -63,6 +63,18 @@ const BalancerPoolTVLAPRChart = ({ data }) => {
         fill: false,
         yAxisID: 'y1',
       },
+      {
+        label: 'Total Value Staked',
+        data: data.map(item => ({
+          x: new Date(item.date.value),
+          y: item.tvs || 0,
+        })),
+        type: 'line',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 2,
+        fill: false,
+        yAxisID: 'y1',
+      },
     ],
   };
 
@@ -127,7 +139,8 @@ const BalancerPoolTVLAPRChart = ({ data }) => {
           afterLabel: (context) => {
             const item = data[context.dataIndex];
             return [
-              `TVL Pool: ${item.tvl_pool.toLocaleString()}`,
+              `TVL Pool: $${item.tvl_pool.toLocaleString()}`,
+              `Total Value Staked: $${item.tvs.toLocaleString()}`,
               `wstETH Balance Pool: ${item.wstETH_balance_pool.toFixed(2)}`,
               `wstETH Balance Stk: ${item.wstETH_balance_stk.toFixed(2)}`,
               `wstETH Price: $${item.wstETH_price.toLocaleString()}`,
