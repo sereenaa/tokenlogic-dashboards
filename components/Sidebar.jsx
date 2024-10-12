@@ -33,7 +33,7 @@ const TailwindSidebar = ({ activeSection }) => {
             </li> */}
             <li>
               <a href="#AaveDash7" className={linkClasses('AaveDash7')}>
-              Balancer 20wstETH-80AAVE Pool TVL and APR
+                AAVE stkBPT and 20wstETH-80AAVE Balancer Pool APRs
               </a>
             </li>
             <li>

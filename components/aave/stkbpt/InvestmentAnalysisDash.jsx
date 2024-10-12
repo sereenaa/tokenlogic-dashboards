@@ -35,6 +35,11 @@ export default function AaveDash2({ className}) {
   const [initialTotalNonLpValue, setInitialTotalNonLpValue] = useState(0);
   const [currentTotalNonLpValue, setCurrentTotalNonLpValue] = useState(0);
 
+  const deploymentDate = new Date('2024-02-11');
+  const today = new Date();
+  const daysSinceDeployment = Math.floor((today - deploymentDate) / (1000 * 60 * 60 * 24));
+
+
   async function fetchData() {
     const response = await fetch(`/api/bigquery/aave/stkbpt/investmentAnalysis?days=${days}&type=data`);
     const result = await response.json();
@@ -103,6 +108,7 @@ export default function AaveDash2({ className}) {
   return (
     <main className={`container mx-auto p-4 flex-grow flex flex-col bg-background text-foreground ${className}`}>
       <h1 className="text-2xl font-bold mb-4">AAVE stkBPT $100k Investment Analysis</h1>
+      <p className="mb-4">Funds were deployed on 11th Feb 2024, which is {daysSinceDeployment} days ago.</p>
 
       <table className="table-auto w-full mb-4 text-table">
       <thead>
