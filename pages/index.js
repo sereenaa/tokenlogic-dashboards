@@ -63,9 +63,9 @@ export default function Home() {
         <AaveDash4 className="mt-10"/>
         <AaveDash5 className="mt-10"/>
         <AaveDash6 className="mt-10"/> */}
-        <section id="AaveDash" className="w-full">
+        {/* <section id="AaveDash" className="w-full">
           <AaveDash />
-        </section>
+        </section> */}
         <section id="AaveDash7" className="w-full">
           <AaveDash7 />
         </section>

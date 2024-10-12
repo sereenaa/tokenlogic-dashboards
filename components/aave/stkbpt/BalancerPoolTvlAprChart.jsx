@@ -25,30 +25,30 @@ const BalancerPoolTVLAPRChart = ({ data }) => {
     labels: data.map(item => new Date(item.date.value)),
     datasets: [
       {
-        label: 'Yield Bearing Tokens APR',
+        label: 'Interest Bearing Token Yield',
         data: data.map(item => ({
           x: new Date(item.date.value),
-          y: item.yield_bearing_tokens_apr || 0,
+          y: item.interest_bearing_token_yield || 0,
         })),
         backgroundColor: 'rgba(75, 192, 192, 0.6)',
         stack: 'APR',
       },
       {
-        label: 'Swap Fees APR',
+        label: 'Swap Fee Yield',
         data: data.map(item => ({
           x: new Date(item.date.value),
-          y: item.swap_fees_apr || 0,
+          y: item.swap_fee_yield || 0,
         })),
         backgroundColor: 'rgba(153, 102, 255, 0.6)',
         stack: 'APR',
       },
       {
-        label: 'Total APR',
+        label: 'Aave Emissions Yield',
         data: data.map(item => ({
           x: new Date(item.date.value),
-          y: item.total_apr || 0,
+          y: item.aave_emissions_yield || 0,
         })),
-        backgroundColor: 'rgba(255, 159, 64, 0.6)',
+        backgroundColor: 'rgba(255, 206, 86, 0.6)',
         stack: 'APR',
       },
       {
@@ -117,10 +117,25 @@ const BalancerPoolTVLAPRChart = ({ data }) => {
           },
           label: (context) => {
             const dataPoint = context.raw;
+            const label = context.dataset.label;
             if (context.dataset.label === 'TVL Pool') {
               return `TVL Pool: $${dataPoint.y.toLocaleString()}`;
             }
-            return `${context.dataset.label}: ${(dataPoint.y * 100).toFixed(2)}%`;
+            // return `${context.dataset.label}: ${(dataPoint.y * 100).toFixed(2)}%`;
+            return `${label}: ${(dataPoint.y * 100).toFixed(2)}%`;
+          },
+          afterLabel: (context) => {
+            const item = data[context.dataIndex];
+            return [
+              `TVL Pool: ${item.tvl_pool.toLocaleString()}`,
+              `wstETH Balance Pool: ${item.wstETH_balance_pool.toFixed(2)}`,
+              `wstETH Balance Stk: ${item.wstETH_balance_stk.toFixed(2)}`,
+              `wstETH Price: $${item.wstETH_price.toLocaleString()}`,
+              `Aave Balance: ${item.aave_balance.toFixed(2)}`,
+              `Aave Balance Stk: ${item.aave_balance_stk.toFixed(2)}`,
+              `Aave Price: $${item.aave_price.toLocaleString()}`,
+              `USD Swap Volume/Day: $${item.usd_swap_volume_per_day.toLocaleString()}`,
+            ];
           },
         },
       },

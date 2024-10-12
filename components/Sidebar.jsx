@@ -26,11 +26,11 @@ const TailwindSidebar = ({ activeSection }) => {
         <div className="p-3">
           <div className="mt-1">
             <ul className="mt-2 space-y-1">
-            <li>
+            {/* <li>
               <a href="#AaveDash" className={linkClasses('AaveDash')}>
                 AAVE stkBPT APR
               </a>
-            </li>
+            </li> */}
             <li>
               <a href="#AaveDash7" className={linkClasses('AaveDash7')}>
               Balancer 20wstETH-80AAVE Pool TVL and APR
