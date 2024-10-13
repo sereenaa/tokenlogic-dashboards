@@ -56,7 +56,8 @@ export default async function handler(req, res) {
           , wsteth_usd_value_1_day as wsteth_usd_value
           , aave_token_balance_1_day as aave_token_balance
           , wsteth_token_balance_1_day as wsteth_token_balance
-        from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis\`
+        from tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis
+        where date != current_date()
         order by date desc ${limitQuery}
       `;
     } else if (frequency === '7d') {
@@ -68,7 +69,8 @@ export default async function handler(req, res) {
           , wsteth_usd_value_7_days as wsteth_usd_value
           , aave_token_balance_7_days as aave_token_balance
           , wsteth_token_balance_7_days as wsteth_token_balance
-        from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis\`
+        from tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis
+        where date != current_date()
         order by date desc ${limitQuery}
       `;
     } else if (frequency === '14d') {
@@ -80,7 +82,8 @@ export default async function handler(req, res) {
           , wsteth_usd_value_14_days as wsteth_usd_value
           , aave_token_balance_14_days as aave_token_balance
           , wsteth_token_balance_14_days as wsteth_token_balance
-        from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis\`
+        from tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis
+        where date != current_date()
         order by date desc ${limitQuery}
       `;
     } else if (frequency === '30d') {
@@ -92,7 +95,8 @@ export default async function handler(req, res) {
           , wsteth_usd_value_30_days as wsteth_usd_value
           , aave_token_balance_30_days as aave_token_balance
           , wsteth_token_balance_30_days as wsteth_token_balance
-        from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis\`
+        from tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis
+        where date != current_date()
         order by date desc ${limitQuery}
       `;
     } else if (frequency === '90d') {
@@ -104,7 +108,8 @@ export default async function handler(req, res) {
           , wsteth_usd_value_90_days as wsteth_usd_value
           , aave_token_balance_90_days as aave_token_balance
           , wsteth_token_balance_90_days as wsteth_token_balance
-        from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis\`
+        from tokenlogic-data-dev.datamart_aave.aave_stkbpt_compounding_analysis
+        where date != current_date()
         order by date desc ${limitQuery}
       `;
     }
