@@ -25,6 +25,30 @@ const BalancerPoolTVLAPRChart = ({ data }) => {
     labels: data.map(item => new Date(item.date.value)),
     datasets: [
       {
+        label: 'TVL Pool',
+        data: data.map(item => ({
+          x: new Date(item.date.value),
+          y: item.tvl_pool || 0,
+        })),
+        type: 'line',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 2,
+        fill: false,
+        yAxisID: 'y1',
+      },
+      {
+        label: 'Total Value Staked',
+        data: data.map(item => ({
+          x: new Date(item.date.value),
+          y: item.tvs || 0,
+        })),
+        type: 'line',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 2,
+        fill: false,
+        yAxisID: 'y1',
+      },
+      {
         label: 'Interest Bearing Token Yield',
         data: data.map(item => ({
           x: new Date(item.date.value),
@@ -50,30 +74,6 @@ const BalancerPoolTVLAPRChart = ({ data }) => {
         })),
         backgroundColor: 'rgba(255, 206, 86, 0.6)',
         stack: 'APR',
-      },
-      {
-        label: 'TVL Pool',
-        data: data.map(item => ({
-          x: new Date(item.date.value),
-          y: item.tvl_pool || 0,
-        })),
-        type: 'line',
-        borderColor: 'rgba(255, 99, 132, 1)',
-        borderWidth: 2,
-        fill: false,
-        yAxisID: 'y1',
-      },
-      {
-        label: 'Total Value Staked',
-        data: data.map(item => ({
-          x: new Date(item.date.value),
-          y: item.tvs || 0,
-        })),
-        type: 'line',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 2,
-        fill: false,
-        yAxisID: 'y1',
       },
     ],
   };
