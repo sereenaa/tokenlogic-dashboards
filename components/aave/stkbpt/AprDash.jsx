@@ -80,7 +80,7 @@ export default function AaveDash() {
             icon={showQuery ? faChevronDown : faChevronRight}
             className="mr-2 cursor-pointer"
             onClick={() => setShowQuery(!showQuery)}
-          />
+          /> 
           <em onClick={() => setShowQuery(!showQuery)} className="cursor-pointer">
             Table: tokenlogic-data-dev.datamart_aave.aave_stkbpt_apr
           </em>
