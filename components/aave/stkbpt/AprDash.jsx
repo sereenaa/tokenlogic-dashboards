@@ -82,7 +82,7 @@ export default function AaveDash() {
             onClick={() => setShowQuery(!showQuery)}
           />
           <em onClick={() => setShowQuery(!showQuery)} className="cursor-pointer">
-            Table: {process.env.NEXT_PUBLIC_GOOGLE_CLOUD_PROJECT}.datamart_aave.aave_stkbpt_apr
+            Table: tokenlogic-data-dev.datamart_aave.aave_stkbpt_apr
           </em>
         </div>
         {showQuery && (
