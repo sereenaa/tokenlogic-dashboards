@@ -14,7 +14,6 @@ export default async function handler(req, res) {
 
   const { days } = req.query; // Get the number of days from the query parameters
   const numericDays = parseInt(days, 10);
-  console.log(numericDays)
 
   let query; 
   if (days === 'all') {

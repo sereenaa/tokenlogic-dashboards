@@ -12,9 +12,11 @@ export default async function handler(req, res) {
     return;
   }
 
+  console.log('Environment:', process.env.ENV)
+  console.log('GCP project:', process.env.GOOGLE_CLOUD_PROJECT)
+
   const { days, type } = req.query; // Get the number of days from the query parameters
   const numericDays = parseInt(days, 10);
-  console.log(numericDays)
 
   let query; 
   if (type === 'avgYields') {

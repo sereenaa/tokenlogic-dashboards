@@ -19,7 +19,6 @@ export default function AaveDash7() {
     async function fetchAverageYields() {
       const response = await fetch(`/api/bigquery/aave/stkbpt/balancerPoolTvlApr?days=${days}&type=avgYields`);
       const result = await response.json();
-      console.log(result)
       setIbYield(result[0].average_ib_yield);
       setSwapFeeYield(result[0].average_swap_fee_yield);
       setEmissionsYield(result[0].average_aave_emissions_yield);
