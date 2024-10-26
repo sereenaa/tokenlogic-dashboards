@@ -6,7 +6,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const DailyStakesBarChart = ({ data }) => {
   const chartData = {
-    labels: data.map(row => row.day.value),
+    labels: data.map(row => row.date.value),
     datasets: [
       {
         label: 'BPTs Staked',
