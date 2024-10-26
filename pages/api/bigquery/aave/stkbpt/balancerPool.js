@@ -17,12 +17,12 @@ export default async function handler(req, res) {
 
   let query; 
   if (days === 'all') {
-    query = `select * from tokenlogic-data-dev.datamart_aave.aave_stkbpt_balancer_pool_deposits_withdrawals order by day`;
+    query = `select * from tokenlogic-data-dev.datamart_aave.aave_stkbpt_balancer_pool_deposits_withdrawals order by date`;
   } else {
     query = `
     select * from (
-      select * from tokenlogic-data-dev.datamart_aave.aave_stkbpt_balancer_pool_deposits_withdrawals order by day desc limit ${numericDays}
-    ) order by day`;
+      select * from tokenlogic-data-dev.datamart_aave.aave_stkbpt_balancer_pool_deposits_withdrawals order by date desc limit ${numericDays}
+    ) order by date`;
   }
 
   try {

@@ -3,7 +3,7 @@ import { Bar } from 'react-chartjs-2';
 
 const BalancerPoolBarChart = ({ data }) => {
   const chartData = {
-    labels: data.map(item => item.day.value), // Extracting the day for labels
+    labels: data.map(item => item.date.value), // Extracting the day for labels
     datasets: [
       {
         label: 'AAVE Total Deposit Value',
