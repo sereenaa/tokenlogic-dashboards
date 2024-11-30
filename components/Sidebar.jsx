@@ -62,7 +62,7 @@ const TailwindSidebar = ({ activeSection }) => {
               </a>
             </li>
             <li>
-              <a href="#ApiFrontend" className={linkClasses('ApiFrontend')}>
+              <a href="#KelpApiFrontend" className={linkClasses('KelpApiFrontend')}>
                 Kelp API Query Interface
               </a>
             </li>
