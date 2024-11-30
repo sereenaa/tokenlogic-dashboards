@@ -11,6 +11,7 @@ import AaveDash3 from "../components/aave/stkbpt/CompositionDash";
 import AaveDash4 from "../components/aave/stkbpt/ClaimsDash";
 import AaveDash5 from "../components/aave/stkbpt/DailyStakesDash";
 import AaveDash6 from "../components/aave/stkbpt/BalancerPoolDash";
+import KelpApiFrontend from '../components/kelp/ApiFrontend';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -83,6 +84,9 @@ export default function Home() {
         </section>
         <section id="AaveDash6" className="w-full">
           <AaveDash6 className="mt-10"/>
+        </section>
+        <section id="KelpApiFrontend" className="w-full">
+          <KelpApiFrontend />
         </section>
       </main>
     </div>

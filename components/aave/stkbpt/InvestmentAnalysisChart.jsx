@@ -37,7 +37,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
 
   // Calculate the date range
   const calculateDateRange = (data) => {
-    const dates = data.map(item => new Date(item.block_hour.value));
+    const dates = data.map(item => new Date(item.date.value));
     const minDate = Math.min(...dates);
     const maxDate = Math.max(...dates);
     return (maxDate - minDate) / (1000 * 60 * 60 * 24); // Convert milliseconds to days
@@ -49,13 +49,13 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
   const compoundThickness = Math.max(2, 15 - (dateRange / 10));
 
   const chartData = {
-    labels: data.map(item => new Date(item.block_hour.value)),
+    labels: data.map(item => new Date(item.date.value)),
     datasets: [ // The ones first are on top
       {
         type: 'line',
         label: "LP User Total Value",
         data: data.map(item => ({
-          x: formatDate(item.block_hour.value), // Match x value with bar dataset
+          x: formatDate(item.date.value), // Match x value with bar dataset
           y: item.lp_user_total_value || 0,
         })),
         borderColor: '#5AB379', 
@@ -68,7 +68,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
         type: 'line',
         label: "Non-LP User Total Value",
         data: data.map(item => ({
-          x: formatDate(item.block_hour.value), // Match x value with bar dataset
+          x: formatDate(item.date.value), // Match x value with bar dataset
           y: item.non_lp_user_total_value || 0,
         })),
         borderColor: '#2654B8', // Orange
@@ -82,7 +82,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
           type: 'bar',
           label: "LP User's wstETH Token Value",
           data: data.map(item => ({
-            x: formatDate(item.block_hour.value),
+            x: formatDate(item.date.value),
             y: item.lp_user_wsteth_value || 0,
             lp_user_total_value: item.lp_user_total_value,
             non_lp_user_total_value: item.non_lp_user_total_value,
@@ -101,7 +101,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
           type: 'line',
           label: "Non-LP User's wstETH Token Value",
           data: data.map(item => ({
-            x: formatDate(item.block_hour.value), // Match x value with bar dataset
+            x: formatDate(item.date.value), // Match x value with bar dataset
             y: item.non_lp_user_wsteth_value || 0,
             lp_user_total_value: item.lp_user_total_value,
             non_lp_user_total_value: item.non_lp_user_total_value,
@@ -137,7 +137,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
           type: 'bar',
           label: "LP User's AAVE Token Value",
           data: data.map(item => ({
-            x: formatDate(item.block_hour.value),
+            x: formatDate(item.date.value),
             y: item.lp_user_aave_value || 0,
             lp_user_total_value: item.lp_user_total_value,
             non_lp_user_total_value: item.non_lp_user_total_value,
@@ -156,7 +156,7 @@ const AaveInvestmentAnalysisChart = ({ data, compoundingData }) => {
           type: 'line',
           label: "Non-LP User's AAVE Token Value",
           data: data.map(item => ({
-            x: formatDate(item.block_hour.value), // Match x value with bar dataset
+            x: formatDate(item.date.value), // Match x value with bar dataset
             y: item.non_lp_user_aave_value || 0,
             lp_user_total_value: item.lp_user_total_value,
             non_lp_user_total_value: item.non_lp_user_total_value,

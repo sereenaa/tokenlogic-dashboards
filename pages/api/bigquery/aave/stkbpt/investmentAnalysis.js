@@ -27,7 +27,7 @@ export default async function handler(req, res) {
     if (days === 'all') {
       query = `
         SELECT 
-          block_hour
+          date
           , lp_user_total_value
           , lp_user_aave_value
           , lp_user_wsteth_value
@@ -44,7 +44,7 @@ export default async function handler(req, res) {
         FROM \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\`
       `;
     } else {
-      query = `SELECT * FROM \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\` order by block_hour desc limit ${numericDays}`;
+      query = `SELECT * FROM \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\` order by date desc limit ${numericDays}`;
     } 
   } else if (type === 'compounding') {
     if (frequency === '1d') {
@@ -126,9 +126,9 @@ export default async function handler(req, res) {
         , non_lp_user_aave_token_balance
         , non_lp_user_wsteth_token_balance
       from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\`
-      where block_hour = (select max(block_hour) from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\`)
-        or block_hour = (select min(block_hour) from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\`)
-      order by block_hour
+      where date = (select max(date) from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\`)
+        or date = (select min(date) from \`tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis\`)
+      order by date
     `
   }
 

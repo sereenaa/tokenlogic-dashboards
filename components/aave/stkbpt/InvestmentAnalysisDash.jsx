@@ -256,9 +256,9 @@ export default function AaveDash2({ className}) {
   , non_lp_user_aave_token_balance
   , non_lp_user_wsteth_token_balance
 from tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis
-where block_hour = (select max(block_hour) from tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis)
-  or block_hour = (select min(block_hour) from tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis)
-order by block_hour;`
+where date = (select max(date) from tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis)
+  or date = (select min(date) from tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis)
+order by date;`
               }
             </code>
           </pre>
@@ -268,7 +268,7 @@ order by block_hour;`
             <code>
               {days === 'all' 
                 ? `SELECT 
-  block_hour
+  date
   , lp_user_total_value
   , lp_user_aave_value
   , lp_user_wsteth_value
@@ -283,7 +283,7 @@ order by block_hour;`
   , wsteth_usd_price
   , manual_il
 FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis;` 
-                : `SELECT * FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis order by block_hour desc limit ${parseInt(days, 10)};`}
+                : `SELECT * FROM tokenlogic-data-dev.datamart_aave.aave_stkbpt_investment_analysis order by date desc limit ${parseInt(days, 10)};`}
             </code>
           </pre>
           <br />

@@ -13,18 +13,35 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 const AaveStkbptHistogramChart = ({ data }) => {
   // Group data into bins
-  const binSize = 0.1; // 1% bin size
-  const maxPercentage = 100;
-  const bins = Array.from({ length: maxPercentage / binSize }, (_, i) => ({
-    range: `${(i * binSize).toFixed(1)}-${((i + 1) * binSize).toFixed(1)}`,
+  // const binSize = 0.1; // 1% bin size
+  // const maxPercentage = 100;
+  // const bins = Array.from({ length: maxPercentage / binSize }, (_, i) => ({
+  //   range: `${(i * binSize).toFixed(1)}-${((i + 1) * binSize).toFixed(1)}`,
+  //   count: 0,
+  // }));
+
+  // data.forEach(item => {
+  //   const perc = parseFloat(item.perc);
+  //   const binIndex = Math.floor(perc / binSize);
+  //   if (binIndex < bins.length) {
+  //     bins[binIndex].count += 1;
+  //   }
+  // });
+
+  // Adjust bin size and max percentage to accommodate the data
+  const binSize = 1; // Change to 1% bin size instead of 0.1%
+  const maxPercentage = Math.ceil(Math.max(...data.map(item => item.perc))); // Dynamically calculate max
+  const bins = Array.from({ length: maxPercentage + 1 }, (_, i) => ({
+    range: `${i}-${i + 1}`,
     count: 0,
   }));
 
   data.forEach(item => {
-    const perc = parseFloat(item.perc);
-    const binIndex = Math.floor(perc / binSize);
-    if (binIndex < bins.length) {
-      bins[binIndex].count += 1;
+    if (item && typeof item.perc === 'number') {
+      const binIndex = Math.floor(item.perc);
+      if (binIndex >= 0 && binIndex < bins.length) {
+        bins[binIndex].count += 1;
+      }
     }
   });
 

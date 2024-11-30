@@ -61,6 +61,11 @@ const TailwindSidebar = ({ activeSection }) => {
                 20wstETH-80AAVE Balancer Pool Deposits and Withdrawals
               </a>
             </li>
+            <li>
+              <a href="#ApiFrontend" className={linkClasses('ApiFrontend')}>
+                Kelp API Query Interface
+              </a>
+            </li>
             </ul>
           </div>
         </div>
