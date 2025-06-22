@@ -12,6 +12,7 @@ import AaveDash4 from "../components/aave/stkbpt/ClaimsDash";
 import AaveDash5 from "../components/aave/stkbpt/DailyStakesDash";
 import AaveDash6 from "../components/aave/stkbpt/BalancerPoolDash";
 import KelpApiFrontend from '../components/kelp/ApiFrontend';
+import DefiProtocolUnlocksDash from '../components/defi/DefiProtocolUnlocksDash';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -57,16 +58,16 @@ export default function Home() {
     >
       <TailwindSidebar activeSection={activeSection} />
       <main className="flex-1 flex flex-col gap-8 items-center sm:items-start p-4 sm:p-8 w-full">
-        {/* <GhoSwapDash /> */}
-        {/* <AaveDash />
+        {/* <GhoSwapDash />
+        <AaveDash />
         <AaveDash2 className="mt-20 mb-10"/>
         <AaveDash3 className="mt-20"/>
         <AaveDash4 className="mt-10"/>
         <AaveDash5 className="mt-10"/>
-        <AaveDash6 className="mt-10"/> */}
-        {/* <section id="AaveDash" className="w-full">
+        <AaveDash6 className="mt-10"/>
+        <section id="AaveDash" className="w-full">
           <AaveDash />
-        </section> */}
+        </section>
         <section id="AaveDash7" className="w-full">
           <AaveDash7 />
         </section>
@@ -87,6 +88,9 @@ export default function Home() {
         </section>
         <section id="KelpApiFrontend" className="w-full">
           <KelpApiFrontend />
+        </section> */}
+        <section id="DefiProtocolUnlocks" className="w-full">
+          <DefiProtocolUnlocksDash />
         </section>
       </main>
     </div>

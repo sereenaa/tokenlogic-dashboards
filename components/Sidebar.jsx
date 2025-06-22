@@ -30,7 +30,7 @@ const TailwindSidebar = ({ activeSection }) => {
               <a href="#AaveDash" className={linkClasses('AaveDash')}>
                 AAVE stkBPT APR
               </a>
-            </li> */}
+            </li>
             <li>
               <a href="#AaveDash7" className={linkClasses('AaveDash7')}>
                 AAVE stkBPT and 20wstETH-80AAVE Balancer Pool APRs
@@ -64,6 +64,11 @@ const TailwindSidebar = ({ activeSection }) => {
             <li>
               <a href="#KelpApiFrontend" className={linkClasses('KelpApiFrontend')}>
                 Kelp API Query Interface
+              </a>
+            </li> */}
+            <li>
+              <a href="#DefiProtocolUnlocks" className={linkClasses('DefiProtocolUnlocks')}>
+                DeFi Protocol Unlocks by Day
               </a>
             </li>
             </ul>
