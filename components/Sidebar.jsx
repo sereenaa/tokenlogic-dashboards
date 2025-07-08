@@ -71,6 +71,11 @@ const TailwindSidebar = ({ activeSection }) => {
                 DeFi Protocol Unlocks by Day
               </a>
             </li>
+            <li>
+              <a href="#MorphoTokenUnlocks" className={linkClasses('MorphoTokenUnlocks')}>
+                Morpho Token Unlock Schedule
+              </a>
+            </li>
             </ul>
           </div>
         </div>

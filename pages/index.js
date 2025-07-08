@@ -13,6 +13,7 @@ import AaveDash5 from "../components/aave/stkbpt/DailyStakesDash";
 import AaveDash6 from "../components/aave/stkbpt/BalancerPoolDash";
 import KelpApiFrontend from '../components/kelp/ApiFrontend';
 import DefiProtocolUnlocksDash from '../components/defi/DefiProtocolUnlocksDash';
+import TokenUnlockScheduleDash from '../components/morpho/TokenUnlockScheduleDash';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -91,6 +92,9 @@ export default function Home() {
         </section> */}
         <section id="DefiProtocolUnlocks" className="w-full">
           <DefiProtocolUnlocksDash />
+        </section>
+        <section id="MorphoTokenUnlocks" className="w-full">
+          <TokenUnlockScheduleDash />
         </section>
       </main>
     </div>
